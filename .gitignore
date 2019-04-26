@@ -1,0 +1,2 @@
+#Ignore .odt locked files
+.~lock.*
