@@ -3,4 +3,4 @@
 03/05/2019 dia 3: Busqueda de informacion sobre la implementacion de MVC en shiny dashboard
 09/05/2019 dia 4:
 Pablo: Desarollo back-end plot
-Andrés: Creacion del front end de la applicacion
+Andrés: Creacion de una parte del front end de la applicacion, Creación del archivo SQl con la base de datos
