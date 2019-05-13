@@ -20,15 +20,27 @@ library(DBI)
 
 conn <- dbConnect(
   drv = RMySQL::MySQL(),
-  dbname = "laravel",
+  dbname = "cellfiles",
   host = "localhost",
   username = "root",
   password = "root")
 
-rs <- dbSendQuery(conn, "SELECT * FROM peliculas LIMIT 5;")
+rs <- dbSendQuery(conn, "SELECT * FROM users")
 
 dbFetch(rs)
 dbClearResult(rs)
 
-dbGetQuery(conn, "SELECT * FROM peliculas LIMIT 5;")
+username = "andres"
+password = "Tenesaca0"
+query = sprintf("SELECT * FROM users where name = ('%s') and password = ('%s')",
+                username, password)
+user = dbGetQuery(conn, query)
+class(user)
+user$name
+user$password
 
+
+dbGetQuery(conn,
+"INSERT INTO users (name, password ,rol ,email)
+  VALUES ('prueba', 'prueba1', 'researcher', 'prueba@gmail.com')"
+)

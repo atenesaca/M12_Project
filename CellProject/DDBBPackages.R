@@ -1,5 +1,4 @@
 # get shiny, DBI, dplyr and dbplyr from CRAN
-install.packages("shiny")
 install.packages("DBI")
 install.packages("dplyr")
 install.packages("dbplyr")

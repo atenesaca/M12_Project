@@ -16,6 +16,7 @@ ui <- dashboardPage(
     title = "Cell Files"
   ),
   dashboardSidebar(
+    uiOutput("userPanel"),
     #collapsed = T,
     #disable = T
     sidebarMenu(id="sidebar",
@@ -45,7 +46,7 @@ ui <- dashboardPage(
     ),
     conditionalPanel(
       condition= "input.sidebar == 'plot'",
-      plotOutput("plot") %>% withSpinner(),
+      plotOutput("plot") %>% withLoader(type = "html", loader = "loader4"),
       withLoader(plotOutput("plot2"), type="html", loader="loader4")
     )
   )
@@ -53,19 +54,62 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   
-  #Switch to plot tab
+  #Switch to plot tab when click in Search ID button
   observeEvent(input$search, {
     newtab <- switch(input$sidebar, "home" = "plot","plot" = "home")
     updateTabItems(session, "sidebar", newtab)
   })
   
+  ##### LOG IN #####
+  
+  output$userPanel <- renderUI({
+    tagList(
+      actionLink("login", "Log in", icon("sign-in-alt"))
+    )
+  })
+  
+  observeEvent(input$login, {
+    showModal(modalDialog(
+      title = "Log in", footer = modalButton("Close"),
+      textInput("username","", "", "100%", placeholder = "User name"),
+      passwordInput("password","","","100%", placeholder = "Password"),
+      actionButton("logUser","Log in")
+    ))
+  })
+  
+  observeEvent(input$logUser,{
+    query = sprintf("SELECT * FROM users where name = ('%s') and password = ('%s')",
+                    input$username, input$password)
+    user = dbGetQuery(conn, query)
+    
+    output$userPanel <- renderUI({
+      removeModal()
+      tagList(
+        sidebarUserPanel(
+          name = user$name,
+          subtitle = a(href = "#", icon("circle", class = "text-success"), "Online")
+        )
+      )
+    })
+  })
   
   ##### DATA #####
   
   # retrieving query
   uQuery <- eventReactive(input$search, {
     query <- input$queryId
-    data <- getGEO(query, destdir=".")
+    validate(
+      #if query id is empty show error
+      need(input$queryId != "", "Please enter a query ID")
+    )
+    
+    data <- try(getGEO(query, destdir="."))
+    
+    validate(
+      #if query id isn´t GDS show error
+      need(isClass(data) == TRUE, "Please insert a correct GEO ID")
+    )
+    
     return(data)
   })
   
