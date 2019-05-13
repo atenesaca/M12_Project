@@ -1,8 +1,6 @@
 install.packages("shinydashboard")
-
-install.packages("RSQLite")
-install.packages("RSQLite.extfuns")
-install.packages("hflights")
+install.packages("shinycssloaders")
+install.packages("shinycustomloader")
 
 source("http://bioconductor.org/biocLite.R")
 biocLite("GEOquery")

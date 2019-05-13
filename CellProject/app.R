@@ -8,6 +8,7 @@ library(dplyr)
 library(limma)
 library(annotate)
 library(shinycssloaders)
+library(shinycustomloader)
 
 ui <- dashboardPage(
   skin = "red",
@@ -45,12 +46,19 @@ ui <- dashboardPage(
     conditionalPanel(
       condition= "input.sidebar == 'plot'",
       plotOutput("plot") %>% withSpinner(),
-      plotOutput("plot2") %>% withSpinner()
+      withLoader(plotOutput("plot2"), type="html", loader="loader4")
     )
   )
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
+  
+  #Switch to plot tab
+  observeEvent(input$search, {
+    newtab <- switch(input$sidebar, "home" = "plot","plot" = "home")
+    updateTabItems(session, "sidebar", newtab)
+  })
+  
   
   ##### DATA #####
   

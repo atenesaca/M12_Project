@@ -1,2 +1,3 @@
 #Ignore .odt locked files
 .~lock.*
+.Rproj.user

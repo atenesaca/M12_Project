@@ -1,0 +1,1542 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1252"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 6.2.0.3 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2019-05-12T18:44:39.702000000"/>
+	<style type="text/css">
+		p { margin-bottom: 0.25cm; background: transparent; line-height: 115%; background: transparent }
+		h1 { margin-bottom: 0.21cm; background: transparent; font-variant: normal; color: #ff3333; text-align: center; background: transparent; page-break-before: auto; page-break-after: avoid }
+		h1.western { font-family: "Batang", serif; font-size: 24pt; font-style: normal; font-weight: bold }
+		h1.cjk { font-family: "Microsoft YaHei"; font-size: 14pt; font-weight: bold }
+		h1.ctl { font-family: "Mangal"; font-size: 14pt; font-weight: bold }
+		h2 { margin-top: 0.35cm; margin-bottom: 0.21cm; background: transparent; color: #9999ff; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Batang", serif; font-size: 18pt; font-weight: bold }
+		h2.cjk { font-family: "Microsoft YaHei"; font-size: 14pt; font-weight: bold }
+		h2.ctl { font-family: "Mangal"; font-size: 14pt; font-weight: bold }
+		td p { background: transparent; background: transparent }
+		h3 { margin-top: 0.25cm; margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Microsoft YaHei"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Mangal"; font-size: 14pt; font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
+	</style>
+</head>
+<body lang="es-ES" link="#000080" vlink="#800000" dir="ltr"><p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%"><font color="#ff3333"><font face="Calibri Light, sans-serif"><font size="7" style="font-size: 35pt">Cell
+Files</font></font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%">Pablo
+Sebastian Rodriguez</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%">Andr&eacute;s
+Tenesaca Burgos</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p lang="en-US" align="right" style="margin-bottom: 0cm; line-height: 100%; background: transparent">
+DAWBIO2-2018-2019</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%; background: transparent">
+<br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%; background: transparent">
+<br/>
+
+</p>
+<p align="right" style="margin-bottom: 0cm; line-height: 100%; background: transparent; page-break-before: always">
+<br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Functional &amp;
+non-functional requirements</h1>
+<h2 class="western">Functional requeriment</h2>
+<p><br/>
+<br/>
+
+</p>
+<ul>
+	<li><p align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en-US"><b>RF1.
+	CELL</b></span> <span lang="en-US"><b>MANAGEMENT:</b></span> <span lang="en-US">As
+	a researcher I want to upload my .cell files to the web app, for
+	further consultations</span></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF1.1
+	Saving .cell:</b> procedures to save .cell files into our database
+	<b>{</b><b>2</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF1.2
+	Consulting .cell:</b> Procedure to consult saved .cell files in DB
+	<b>{</b><b>2</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF1.3
+	Upload .cell:</b> Procedure to upload .cell files for further
+	analysis <b>{</b><b>3</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF2.
+	QUERY MANAGEMENT:</b> As a researcher I want to make a query using
+	microarray&rsquo;s id to GEOQuery or ArrayExpress DB</font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF2.1
+	Make query:</b> Procedure to make a query into 2 external databases
+	<b>{</b><b>8</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF2.2
+	Saving queries:</b> Procedure to store previous queries in user data
+	<b>{</b><b>4</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF2.3
+	Consulting saved queries:</b> Procedure to access previously saved
+	queries <b>{</b><b>4</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF2.4
+	Choose external database:</b> Procedure to choose between GEO query
+	or Array Server db  <b>{</b><b>7</b><b>}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF3.
+	DATA MANAGEMENT:</b> As a researcher I want to use different sets of
+	graphics or data tables to see and interpret gene expressions saved
+	in my .cell files or in my micro array queries</font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF3.1
+	Graphics:</b> Methods to print reactive graphics and tools <b>{6}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF4.
+	USER MANAGEMENT:</b> As a researcher I want to be able to register
+	and log unto this web app to consult saved .cell files and saved
+	queries </font></font>
+	</p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF4.1
+	Register:</b> Register new user <b>{3}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF4.2
+	Login:</b> Login existing user <b>{3}</b></font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF5.
+	VIEW CUSTOMIZATION:</b> As a researcher I want choose the graphic
+	tool templates</font></font></p>
+	<li><p lang="en-US" align="left" style="font-weight: normal"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>RF5.1
+	Change template:</b> Select button to change shiny app template <b>{1}</b></font></font></p>
+</ul>
+<p lang="en-US" align="left" style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<h2 class="western" style="page-break-before: always">Non-functional
+requeriments</h2>
+<p lang="en-US" align="left" style="font-weight: normal"><br/>
+<br/>
+
+</p>
+<ul>
+	<li><p lang="en-US" style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+	<font face="Arial, sans-serif"><font size="2" style="font-size: 11pt">Back-end:
+	Shiny for graphic tools and MySql to handle login and user&rsquo;s
+	info</font></font></p>
+	<li><p lang="en-US" style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+	<font face="Arial, sans-serif"><font size="2" style="font-size: 11pt">Front-end:
+	Shint who implements HTML and Bootstrap</font></font></p>
+	<li><p lang="en-US" style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+	<font face="Arial, sans-serif"><font size="2" style="font-size: 11pt">Data
+	management: R and other R-related packages (like BioConductor)</font></font></p>
+	<li><p lang="en-US" align="left" style="margin-bottom: 0cm; background: transparent; font-weight: normal; line-height: 100%">
+	<font face="Arial, sans-serif"><font size="2" style="font-size: 11pt">Server:
+	Ubuntu Server</font></font></p>
+</ul>
+<p lang="en-US" align="left" style="margin-bottom: 0cm; background: transparent; font-weight: normal; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="margin-bottom: 0cm; background: transparent; font-weight: normal; line-height: 100%">
+<br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Use Case
+diagram and textual description</h1>
+<h2 class="western">Use case diagram</h2>
+<p><br/>
+<br/>
+
+</p>
+<p><img src="FinalDocumentation_docx_e54a20765deb42cd.png" name="Image1" align="bottom" width="643" height="679" border="0"/>
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<h2 class="western" style="page-break-before: always">Use case
+textual description</h2>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			1.1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Saving .cell file</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			 Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Once the user has succesfully uploaded a cell file, it has the
+			option to be saved into its personal user account for further
+			access</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Bing logged in and have already successfully uploaded a .cell file</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Clicks on &laquo;Save&raquo; button</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User clicks on &laquo;Save&raquo; option</p>
+			<p align="center">2. Confirmation box will ask if wants to save
+			file in its account</p>
+			<p align="center">3. Confirmation message</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Returns to upload file view</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			3. User doesn&rsquo;t accept confirmation box</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			File will not be saved in its account</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			3. Error with db occurs and file is not saved</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Message error informs user about problem</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			1.2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Consulting .cell</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			A view where user can access previously uploaded files</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Being logged in</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Entering consult .cell file view</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User goes to this view</p>
+			<p align="center">2. View is displayed</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Use graph or data table tools to analyze this .cell 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			3. No .cell file was saved</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			View will be empty</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<div align="right">
+	<table width="642" cellpadding="4" cellspacing="0">
+		<col width="311"/>
+
+		<col width="313"/>
+
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				ID</p>
+			</td>
+			<td width="313" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+				1.3</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Name</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Upload .cell</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Description</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Action that will let user choose a local file and upload it to
+				the web app for further actions</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" width="632" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Normal Flux</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Actors</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				User</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Pre conditions</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Being logged in</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Activation</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Clicking the upload button</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Description</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				1. User clicks &laquo;upload&raquo; option</p>
+				<p align="center">2. New window will prompt user to choose a
+				local file</p>
+				<p align="center">3. Select and accept</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				PostConditions</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Uploaded file will be reproduce will default graph and data table
+				tools for further reactive interaction</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" width="632" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Alternate Flux 1</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Description</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				4. File has wrong format (not a .cell file)</p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="311" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+				Post-Condition</p>
+			</td>
+			<td width="313" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+				Message error indicating file has wrong format and could not be
+				uploaded</p>
+			</td>
+		</tr>
+	</table>
+</div>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			2.1 
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Make a query</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User can choose to make a query to microarray database instead of
+			uploading a local file</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Being logged in and being in possesion of a microarray&rsquo;s id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Clicking &laquo;Query&raquo; view</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User selects a database</p>
+			<p align="center">2. In troduced microarray id and accepts</p>
+			<p align="center">3. If array exists in the database, it will be
+			analyze with graph tools</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Using interactive graph tools to study microarray</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Id doesn&rsquo;t exist</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Error message: id not found</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			No id is introduced</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Client-side message error informing that id can not be null</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			2.2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Saving query</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Once a db query has being made, user can choose to save it in its
+			account</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Being logged in and have made a succesfull query</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Clicking &laquo;Save query&raquo; option</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User clicks save option</p>
+			<p align="center">2. will be prompted to confirm</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Id is saved in its account info</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User doesn&rsquo;t accept query to be saved</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Query id not saved</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			2.3</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Consulting save queries</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			An option in user view to go and check previously saved queries</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Being logged in</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Once user enters &laquo;saved queries&raquo; view</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User enters saved queries view</p>
+			<p align="center">2. A new display with saved ids is shown</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User can make a new query using that id</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			3. User doesn&rsquo;t have any saved id</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			None special</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			3.1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Graphic tools and Data table tools</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			A set of graph and table tools for data analysis</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Being logged in and have made a microarray upload (by consulting
+			microarray web database using id or uploading a local .cell file)</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Depends on the view (db query or file upload)</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User choose how to retrieve a microarray</p>
+			<p align="center">2. Once retireved, graph tools are displayed</p>
+			<p align="center">3. Reactive tools will let user personalize its
+			tools</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Printing graphs, exporting them to pdf, saving query id or saving
+			uploaded file in user account</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			4.1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Register</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			A researcher can register as a user in this app</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Any client or resear who wants to use our app</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			None</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Clicking in register option</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. Visitor clicks register option</p>
+			<p align="center">2. Classic form will ask user to fill data to
+			make an account</p>
+			<p align="center">3. Everything is sanitize and checkd, then a
+			user account is created</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			New user can make queries or upload .cell files</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Error in form inputs</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Message displayed informing about error</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Visitor introduces an already introduced email</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Message error informing correu electr&ograve;nic already informed,
+			no new user created</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			4.2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Login</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			A user logs into its account</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Have created an account</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Clicking in login option</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User tries to log in</p>
+			<p align="center">2. App will ask for credentials</p>
+			<p align="center">3. User verified</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User can access to all user-only views and tools</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Wrong password introduced in login form</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Condition</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Message error</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Alternate Flux 2</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Wrong user name introduced</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Post-Conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Message error or prompting researcher to register</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<table width="100%" cellpadding="4" cellspacing="0">
+	<col width="128*"/>
+
+	<col width="128*"/>
+
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			ID</p>
+		</td>
+		<td width="50%" style="border: 1px solid #000000; padding: 0.1cm"><p align="center">
+			5.1</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Name</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			View customization</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			A simple tool to change graph tools&rsquo; dashboard view template</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" width="100%" valign="top" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Normal Flux</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Actors</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			User</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Pre conditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Being mlogged in and already using the graph tool</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Activation</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			Changin option in a select form</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			Description</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			1. User changes template option</p>
+			<p align="center">2. View is updated with new template</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="50%" bgcolor="#808080" style="background: #808080" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm"><p align="center">
+			PostConditions</p>
+		</td>
+		<td width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm"><p align="center">
+			New color scheme is updated into the dashboard</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Class diagram</h1>
+<p><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<img src="FinalDocumentation_docx_d013113132a77dd7.jpg" name="Image2" align="middle" width="661" height="324" border="0"/>
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Entity relation
+diagram and relational model</h1>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Description of
+the methodology used</h1>
+<h2 class="western">Project plannning</h2>
+<p><br/>
+<br/>
+
+</p>
+<h3 class="western">Dates</h3>
+<p><img src="FinalDocumentation_docx_f98aeb630d76ac02.jpg" name="Image7" align="bottom" width="643" height="159" border="0"/>
+</p>
+<p><br/>
+<br/>
+
+</p>
+<h3 class="western">Product backlog &amp; effort Points</h3>
+<p><img src="FinalDocumentation_docx_b3f2ae702a431186.png" name="Imatge1" align="bottom" width="643" height="216" border="0"/>
+</p>
+<p><br/>
+<br/>
+
+</p>
+<h3 class="western">Sprints</h3>
+<p><img src="FinalDocumentation_docx_21e7cb5bd8e76c54.jpg" name="Image3" align="middle" width="643" height="118" border="0"/>
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<img src="FinalDocumentation_docx_e0b7bb9c52d99dbe.jpg" name="Image5" align="bottom" width="643" height="128" border="0"/>
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<img src="FinalDocumentation_docx_783e1557c1781040.jpg" name="Image4" align="bottom" width="643" height="151" border="0"/>
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<img src="FinalDocumentation_docx_92d0298ed1b087eb.jpg" name="Image6" align="bottom" width="643" height="168" border="0"/>
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; background: transparent; line-height: 100%">
+<br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Initial
+Planning</h1>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<h1 class="western" style="page-break-before: always">Diary log</h1>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#6666ff"><i>26/05/2019</i></font><font color="#6666ff">
+</font><font color="#6666ff"><b>day 1</b></font><font color="#6666ff">
+</font>Ending Delivery #2</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#6666ff"><i>02/05/2019</i></font><font color="#6666ff">
+</font><font color="#6666ff"><b>day </b></font><font color="#6666ff"><span style="font-weight: normal">2</span></font>
+<span style="font-weight: normal">Looking</span> for information
+about GEOQuery and ArrayExpress</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#6666ff"><i>03/05/2019</i></font><font color="#6666ff">
+</font><font color="#6666ff"><b>day 3</b></font> Looking for
+information about implementation of MVC inf shiny Dashboard</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#6666ff"><i>09/05/2019</i></font><font color="#6666ff">
+</font><font color="#6666ff"><b>day 4</b></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%">Pablo: Back end
+development</p>
+<p style="margin-bottom: 0cm; line-height: 100%">Andr&eacute;s:
+Creation of Front end app, Creation of MySQL file</p>
+<h1 class="western" style="page-break-before: always">Problems &amp;
+solutions</h1>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<ul>
+	<li><p style="margin-bottom: 0cm; line-height: 100%"><span style="font-variant: normal"><font color="#ff3333"><span style="font-style: normal"><b>Problem</b></span></font></span>:
+	Uno de los problemas que tuvimos fue pensar en como seria la parte
+	de la apariencia al final de la aplicaci&oacute;n.</p>
+	<li><p style="margin-bottom: 0cm; line-height: 100%"><span style="font-variant: normal"><font color="#006600"><span style="font-style: normal"><b>Solution</b></span></font></span>:
+	Seguro que a lo largo de este m&eacute;s se nos ocurriria ideas de
+	como podria ser la apariencia.</p>
+</ul>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<ul>
+	<li><p style="margin-bottom: 0cm; line-height: 100%"><span style="font-variant: normal"><font color="#ff3333"><span style="font-style: normal"><b>Problem</b></span></font></span>:
+	El mayor de los problemas seguramente es pensar como tendr&iacute;amos
+	que desarollar el codigo de la aplicaci&oacute;n ya que nuestro
+	projecto se basa en algo que no hemos hecho en clase y como
+	tendremos que tratar los datos crudos de los ficheros cell.</p>
+	<li><p style="margin-bottom: 0cm; line-height: 100%"><span style="font-variant: normal"><font color="#006600"><span style="font-style: normal"><b>Solution</b></span></font></span>:
+	Pasar la mayor parte buscando tutoriales en internet y preguntar a
+	los profesores.</p>
+</ul>
+<h1 class="western" style="page-break-before: always">Final
+conclusions</h1>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+</body>
+</html>
