@@ -9,13 +9,19 @@ library(limma)
 library(annotate)
 library(shinycssloaders)
 library(shinycustomloader)
+library(shinyjs)
 
 ui <- dashboardPage(
   skin = "red",
+  
+  # HEADER
   dashboardHeader(
     title = "Cell Files"
   ),
+  
+  # SIDEBAR
   dashboardSidebar(
+    useShinyjs(),
     uiOutput("userPanel"),
     #collapsed = T,
     #disable = T
@@ -27,23 +33,38 @@ ui <- dashboardPage(
       condition = "input.sidebar == 'plot'"
     )
   ),
+  
+  # BODY
   dashboardBody(
     conditionalPanel(
+      
+      # PANEL HOME
       condition = "input.sidebar == 'home'",
       
       fluidRow(
+        # BOX QUERY
         box(
           title ="", solidHeader = T, background = "black", collapsible = T,
           textInput("queryId", "Input query ID", ""),
           actionButton("search", "Search ID")
         ),
+        # BOX FILE
         box(
           title ="", solidHeader = T, background = "black", collapsible = T,
           fileInput("celFile", "Upload file", accept = ".zip"),
           actionButton("upload", "Upload file")
         )
+      ),
+      fluidRow(
+        #BOX PHENO CHOICE
+        box(
+          checkboxGroupInput("check1", "Choose first pheno: "),
+          actionButton("goToPlot", "Go to Plot")
+        )
       )
     ),
+    
+    # PANEL PLOTS
     conditionalPanel(
       condition= "input.sidebar == 'plot'",
       plotOutput("plot") %>% withLoader(type = "html", loader = "loader4"),
@@ -54,13 +75,25 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   
-  #Switch to plot tab when click in Search ID button
-  observeEvent(input$search, {
+  ##################################### UI THINGS #####################################
+  
+  #Switch to plot tab when click in Go to Plot button
+  observeEvent(input$goToPlot, {
     newtab <- switch(input$sidebar, "home" = "plot","plot" = "home")
     updateTabItems(session, "sidebar", newtab)
   })
   
-  ##### LOG IN #####
+  # If input$check is null, hide the go to plot button
+  observe({
+    if(!is.null(input$check1)){
+      shinyjs::show("goToPlot")
+    } else {
+      shinyjs::hide("goToPlot")
+    }
+  })
+  
+  
+  ##################################### LOG IN #####################################
   
   output$userPanel <- renderUI({
     tagList(
@@ -93,23 +126,20 @@ server <- function(input, output, session) {
     })
   })
   
-  ##### DATA #####
+  ##################################### DATA #####################################
   
-  # retrieving query
+  # retrieving and launching query
   uQuery <- eventReactive(input$search, {
     query <- input$queryId
+    #if query id is empty, show error
     validate(
-      #if query id is empty show error
       need(input$queryId != "", "Please enter a query ID")
     )
     
     data <- try(getGEO(query, destdir="."))
-    
     validate(
-      #if query id isn´t GDS show error
       need(isClass(data) == TRUE, "Please insert a correct GEO ID")
     )
-    
     return(data)
   })
   
@@ -121,11 +151,17 @@ server <- function(input, output, session) {
     e
   })
   
+  # update checkbox with phenodata
+  observe({
+    updateCheckboxGroupInput(session, "check1", choices = colnames(pData(eset()))[2:3])
+  })
+  
   # groups, this will be choosen by user
   groups <- reactive({
-    req(eset())
+    req(input$check1)
     x <- eset()
-    pData(x)[,2]
+    col_pheno <- input$check1
+    pData(x)[,col_pheno]
   }) 
 
   # dataframe for plot1
@@ -162,7 +198,7 @@ server <- function(input, output, session) {
     return(g)
   }) 
   
-  ########## PLOTS #########
+  ##################################### PLOTS  ##################################### 
   
   ### Plot 1
   output$plot <- renderPlot({
