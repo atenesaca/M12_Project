@@ -18,12 +18,19 @@ df_pelis
 
 library(DBI)
 
-conn <- dbConnect(
-  drv = RMySQL::MySQL(),
-  dbname = "cellfiles",
-  host = "localhost",
-  username = "root",
-  password = "root")
+conn = tryCatch({
+  dbConnect(
+    drv = RMySQL::MySQL(),
+    dbname = "cellfiles",
+    host = "localhost",
+    username = "root",
+    password = "root")
+},
+error = function(e){
+  "Error connecting to database"
+})
+
+
 
 rs <- dbSendQuery(conn, "SELECT * FROM users")
 

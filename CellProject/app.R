@@ -7,7 +7,6 @@ library(ggplot2)
 library(dplyr)
 library(limma)
 library(annotate)
-library(shinycssloaders)
 library(shinycustomloader)
 library(shinyjs)
 
@@ -57,17 +56,14 @@ ui <- dashboardPage(
       ),
       fluidRow(
         #BOX PHENO CHOICE
-        box(
-          checkboxGroupInput("check1", "Choose first pheno: "),
-          actionButton("goToPlot", "Go to Plot")
-        )
+        uiOutput("selectPlot")
       )
     ),
     
     # PANEL PLOTS
     conditionalPanel(
       condition= "input.sidebar == 'plot'",
-      plotOutput("plot") %>% withLoader(type = "html", loader = "loader4"),
+      withLoader(plotOutput("plot"), type = "html", loader = "loader4"),
       withLoader(plotOutput("plot2"), type="html", loader="loader4")
     )
   )
@@ -152,8 +148,14 @@ server <- function(input, output, session) {
   })
   
   # update checkbox with phenodata
-  observe({
-    updateCheckboxGroupInput(session, "check1", choices = colnames(pData(eset()))[2:3])
+  output$selectPlot <- renderUI({
+    tagList(
+      box(
+        selectInput("check1", "Choose first pheno: ",
+                    choices = colnames(pData(eset()))[2:3]),
+        actionButton("goToPlot", "Go to Plot") 
+      )
+    )
   })
   
   # groups, this will be choosen by user
