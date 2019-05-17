@@ -10,6 +10,7 @@ library(annotate)
 library(shinycustomloader)
 library(shinyjs)
 
+############################## UI INTERFACE #############################
 ui <- dashboardPage(
   skin = "red",
   
@@ -21,7 +22,7 @@ ui <- dashboardPage(
   # SIDEBAR
   dashboardSidebar(
     useShinyjs(),
-    uiOutput("userPanel"),
+    # uiOutput("userPanel"),
     #collapsed = T,
     #disable = T
     sidebarMenu(id="sidebar",
@@ -63,8 +64,27 @@ ui <- dashboardPage(
     # PANEL PLOTS
     conditionalPanel(
       condition= "input.sidebar == 'plot'",
-      withLoader(plotOutput("plot"), type = "html", loader = "loader4"),
-      withLoader(plotOutput("plot2"), type="html", loader="loader4")
+      tabsetPanel(type="tabs",
+                  tabPanel("Quality Control", 
+                           fluidRow(
+                             column(6,plotOutput("plot.raw1")
+                                    ),
+                             column(6,plotOutput("plot.rma1")
+                                    )
+                           ),
+                           fluidRow(
+                             column(width=8, offset=2, align="center",
+                                    plotOutput("plot.MA")
+                             )
+                           )
+                           
+                  ),
+                  tabPanel("Gene Expression",
+                           fluidRow(
+                             plotOutput("plot2")
+                             )
+                  )
+      )
     )
   )
 )
@@ -87,40 +107,7 @@ server <- function(input, output, session) {
       shinyjs::hide("goToPlot")
     }
   })
-  
-  
-  ##################################### LOG IN #####################################
-  
-  output$userPanel <- renderUI({
-    tagList(
-      actionLink("login", "Log in", icon("sign-in-alt"))
-    )
-  })
-  
-  observeEvent(input$login, {
-    showModal(modalDialog(
-      title = "Log in", footer = modalButton("Close"),
-      textInput("username","", "", "100%", placeholder = "User name"),
-      passwordInput("password","","","100%", placeholder = "Password"),
-      actionButton("logUser","Log in")
-    ))
-  })
-  
-  observeEvent(input$logUser,{
-    query = sprintf("SELECT * FROM users where name = ('%s') and password = ('%s')",
-                    input$username, input$password)
-    user = dbGetQuery(conn, query)
-    
-    output$userPanel <- renderUI({
-      removeModal()
-      tagList(
-        sidebarUserPanel(
-          name = user$name,
-          subtitle = a(href = "#", icon("circle", class = "text-success"), "Online")
-        )
-      )
-    })
-  })
+
   
   ##################################### DATA #####################################
   
@@ -139,8 +126,16 @@ server <- function(input, output, session) {
     return(data)
   })
   
-  # normalizing query
-  eset <- reactive({
+  # raw data
+  eset.raw <- reactive({
+    req(uQuery)
+    e <- uQuery()
+    e <- GDS2eSet(e, do.log2=FALSE)
+    e
+  })
+  
+  # normalized data
+  eset.rma <- reactive({
     req(uQuery)
     e <- uQuery()
     e <- GDS2eSet(e, do.log2=TRUE)
@@ -152,7 +147,7 @@ server <- function(input, output, session) {
     tagList(
       box(
         selectInput("check1", "Choose first pheno: ",
-                    choices = colnames(pData(eset()))[2:3]),
+                    choices = colnames(pData(eset.rma()))[2:3]),
         actionButton("goToPlot", "Go to Plot") 
       )
     )
@@ -161,26 +156,37 @@ server <- function(input, output, session) {
   # groups, this will be choosen by user
   groups <- reactive({
     req(input$check1)
-    x <- eset()
+    x <- eset.rma()
     col_pheno <- input$check1
     pData(x)[,col_pheno]
   }) 
-
-  # dataframe for plot1
-  genes <- reactive({
-    req(eset(), groups())
-    sample <- sampleNames(eset())
-    y <- exprs(eset())
+  
+  # dataframe raw
+  genes.raw <- reactive({
+    req(eset.raw(), groups())
+    sample <- sampleNames(eset.raw())
+    y <- exprs(eset.raw())
     groups<- groups()
     g<- melt(y, varnames = c( "probe", "sample"))
     g$genotype <- groups[match(g$sample, sample)]
     return(g)
   })
   
-  # data for the heatmap
+  # dataframe normalized
+  genes.rma <- reactive({
+    req(eset.rma(), groups())
+    sample <- sampleNames(eset.rma())
+    y <- exprs(eset.rma())
+    groups<- groups()
+    g<- melt(y, varnames = c( "probe", "sample"))
+    g$genotype <- groups[match(g$sample, sample)]
+    return(g)
+  })
+  
+  # data for the heatmap (normalized)
   ebayes <- reactive({
-    req(groups(), eset())
-    y <- exprs(eset())
+    req(groups(), eset.rma())
+    y <- exprs(eset.rma())
     g <- groups()
     design <- model.matrix(~factor(g))
     fit <- lmFit(y, design)
@@ -202,22 +208,80 @@ server <- function(input, output, session) {
   
   ##################################### PLOTS  ##################################### 
   
-  ### Plot 1
-  output$plot <- renderPlot({
-    req(genes())
-    data <- genes()
+  ########### QUALITY PLOTS ##############
+  
+  ### Plots raw
+  output$plot.raw1 <- renderPlot({
+    req(genes.raw())
+    data <- genes.raw()
     ggplot(data, aes(x=sample, y=value, fill=genotype)) + geom_boxplot()
   })
   
+  ### Plots normalized
+  
+  output$plot.rma1 <- renderPlot({
+    req(genes.rma())
+    data <- genes.rma()
+    ggplot(data, aes(x=sample, y=value, fill=genotype)) + geom_boxplot()
+  })
+  
+  ## plot ma
+  output$plot.MA <- renderPlot({
+    req(eset.rma())
+    g <- groups()
+    Index <- as.numeric(g)
+    y <- exprs(eset.rma())
+    d <- rowMeans(y[,Index==2]) - rowMeans(y[, Index==1])
+    a <- rowMeans(y)
+    smoothScatter(a, d, main="MA plot", xlab="A", ylab="M")
+    abline(h=c(-1,1), col="red")
+  })
+  
+  
+  ######## GENE EXPRESSION ##########
   ### Plot 2
   output$plot2 <- renderPlot({
-    req(eset())
-    y<- exprs(eset())
+    req(eset.rma())
+    y<- exprs(eset.rma())
     tab <- tab()
     labCol<- labCol()
     heatmap(y[row.names(tab),], labCol = labCol, scale="none", cexRow=0.5)
   })
   
+  
 }
 
 shinyApp(ui, server)
+
+# ##################################### LOG IN #####################################
+# 
+# output$userPanel <- renderUI({
+#   tagList(
+#     actionLink("login", "Log in", icon("sign-in-alt"))
+#   )
+# })
+# 
+# observeEvent(input$login, {
+#   showModal(modalDialog(
+#     title = "Log in", footer = modalButton("Close"),
+#     textInput("username","", "", "100%", placeholder = "User name"),
+#     passwordInput("password","","","100%", placeholder = "Password"),
+#     actionButton("logUser","Log in")
+#   ))
+# })
+# 
+# observeEvent(input$logUser,{
+#   query = sprintf("SELECT * FROM users where name = ('%s') and password = ('%s')",
+#                   input$username, input$password)
+#   user = dbGetQuery(conn, query)
+#   
+#   output$userPanel <- renderUI({
+#     removeModal()
+#     tagList(
+#       sidebarUserPanel(
+#         name = user$name,
+#         subtitle = a(href = "#", icon("circle", class = "text-success"), "Online")
+#       )
+#     )
+#   })
+# })
