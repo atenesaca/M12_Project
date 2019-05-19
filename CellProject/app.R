@@ -57,7 +57,8 @@ ui <- dashboardPage(
       ),
       fluidRow(
         #BOX PHENO CHOICE
-        uiOutput("selectPlot")
+        uiOutput("selectPlot"),
+        uiOutput("arraydesc")
       )
     ),
     
@@ -122,7 +123,7 @@ server <- function(input, output, session) {
       need(input$queryId != "", "Please enter a query ID")
     )
     
-    data <- try(getGEO(query, destdir="."))
+    data <- try(getGEO(query, destdir=tempdir()))
     validate(
       need(isClass(data) == TRUE, "Please insert a correct GEO ID")
     )
@@ -153,6 +154,16 @@ server <- function(input, output, session) {
                     choices = colnames(pData(eset.rma()))[2:3]),
         actionButton("goToPlot", "Go to Plot") 
       )
+    )
+  })
+  
+  # update array description
+  output$arraydesc <- renderUI({
+    req(uQuery())
+    data <- uQuery()
+    box(title = "Quick Description", status = "primary", solidHeader = TRUE,
+        collapsible = TRUE,
+        p(Meta(data)$description[1])
     )
   })
   
@@ -251,6 +262,7 @@ server <- function(input, output, session) {
     heatmap(y[row.names(tab),], labCol = labCol, scale="none", cexRow=0.5)
   })
   
+  ## Plot individual gene expression
   output$plot.gene1 <- renderPlot({
     req(eset.rma(), groups())
     y<- exprs(eset.rma())
