@@ -82,7 +82,10 @@ ui <- dashboardPage(
                   tabPanel("Gene Expression",
                            fluidRow(
                              plotOutput("plot2")
-                             )
+                             ),
+                           fluidRow(
+                             plotOutput("plot.gene1")
+                           )
                   )
       )
     )
@@ -248,6 +251,16 @@ server <- function(input, output, session) {
     heatmap(y[row.names(tab),], labCol = labCol, scale="none", cexRow=0.5)
   })
   
+  output$plot.gene1 <- renderPlot({
+    req(eset.rma(), groups())
+    y<- exprs(eset.rma())
+    g<- y[23,]
+    group <- groups()
+    dt <- data.frame("Index"=group, "Expr"=g)
+    ggplot(dt, aes(x=group, y=Expr)) + geom_jitter(aes(colour=group)) +
+      theme(legend.position = "none")
+    
+  })
   
 }
 
