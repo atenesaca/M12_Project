@@ -84,11 +84,15 @@ ui <- dashboardPage(
                   ),
                   tabPanel("Gene Expression",
                            fluidRow(
+                             br(),
                              d3heatmapOutput("plot.heatMap")
                            ),
                            fluidRow(
                              br(),
                              plotlyOutput("plot.gene1")
+                           ),
+                           fluidRow(
+                             plotOutput("plot.volcano")
                            )
                   )
       )
@@ -264,8 +268,9 @@ server <- function(input, output, session) {
     expSet<- exprs(eset.rma())
     tab <- tab()
     labCol<- labCol()
-    expDataName = expSet[row.names(tab),]
-    d3heatmap(expDataName[1:20,], labCol = labCol, scale="none", cexRow=0.5)
+    expDataName <- expSet[row.names(tab),]
+    d3heatmap(expDataName[1:20,], labCol = labCol, cexRow=0.5, dendogram="both",
+              k_row=3, k_col=3)
   })
   
   ### Plot individual gene expression
@@ -277,7 +282,11 @@ server <- function(input, output, session) {
     dt <- data.frame("Index"=group, "Expr"=g)
     ggplot(dt, aes(x=group, y=Expr)) + geom_jitter(aes(colour=group)) +
       theme(legend.position = "none")
-    
+  })
+  ## Venn diagram
+  output$plot.volcano <- renderPlot({
+    eb <- ebayes()
+    volcanoplot(eb, coef=2, highlight=5)
   })
   
 }
