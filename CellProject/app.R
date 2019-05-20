@@ -9,6 +9,8 @@ library(limma)
 library(annotate)
 library(shinycustomloader)
 library(shinyjs)
+library(plotly)
+library(d3heatmap)
 
 ############################## UI INTERFACE #############################
 ui <- dashboardPage(
@@ -16,15 +18,14 @@ ui <- dashboardPage(
   
   # HEADER
   dashboardHeader(
-    title = "Cell Files"
+    title = "Gene Chips Analysis"
   ),
   
   # SIDEBAR
   dashboardSidebar(
     useShinyjs(),
-    # uiOutput("userPanel"),
-    #collapsed = T,
-    #disable = T
+    # collapsed = T,
+    # disable = T,
     sidebarMenu(id="sidebar",
                 menuItem("Home", tabName = "home", icon = icon("home")),
                 menuItem("Plot", tabName = "plot", icon = icon("chart-bar"))
@@ -57,8 +58,8 @@ ui <- dashboardPage(
       ),
       fluidRow(
         #BOX PHENO CHOICE
-        uiOutput("selectPlot"),
-        uiOutput("arraydesc")
+        uiOutput("selectPhenoData"),
+        uiOutput("ExpDesc")
       )
     ),
     
@@ -69,11 +70,12 @@ ui <- dashboardPage(
                   tabPanel("Quality Control", 
                            fluidRow(
                              column(6,plotOutput("plot.raw1")
-                                    ),
+                             ),
                              column(6,plotOutput("plot.rma1")
-                                    )
+                             )
                            ),
                            fluidRow(
+                             br(),
                              column(width=8, offset=2, align="center",
                                     plotOutput("plot.MA")
                              )
@@ -82,10 +84,11 @@ ui <- dashboardPage(
                   ),
                   tabPanel("Gene Expression",
                            fluidRow(
-                             plotOutput("plot2")
-                             ),
+                             d3heatmapOutput("plot.heatMap")
+                           ),
                            fluidRow(
-                             plotOutput("plot.gene1")
+                             br(),
+                             plotlyOutput("plot.gene1")
                            )
                   )
       )
@@ -104,65 +107,67 @@ server <- function(input, output, session) {
   })
   
   # If input$check is null, hide the go to plot button
-  observe({
-    if(!is.null(input$check1)){
-      shinyjs::show("goToPlot")
-    } else {
-      shinyjs::hide("goToPlot")
-    }
-  })
+  # observe({
+  #   if(!is.null(input$check1)){
+  #     shinyjs::show("goToPlot")
+  #   } else {
+  #     shinyjs::hide("goToPlot")
+  #   }
+  # })
 
   
   ##################################### DATA #####################################
   
-  # retrieving and launching query
-  uQuery <- eventReactive(input$search, {
+  # gdsObj: Reactive event
+  # Downloada GDS object from NCBI Geo and saves it in a Geo Object
+  gdsObj <- eventReactive(input$search, {
     query <- input$queryId
     #if query id is empty, show error
     validate(
       need(input$queryId != "", "Please enter a query ID")
     )
     
-    data <- try(getGEO(query, destdir=tempdir()))
+    data <- try(getGEO(query, destdir="."))
     validate(
-      need(isClass(data) == TRUE, "Please insert a correct GEO ID")
+      need(isClass(data) == TRUE, "Please insert a correct GDS ID")
     )
     return(data)
   })
   
   # raw data
   eset.raw <- reactive({
-    req(uQuery)
-    e <- uQuery()
+    req(gdsObj)
+    e <- gdsObj()
     e <- GDS2eSet(e, do.log2=FALSE)
     e
   })
   
   # normalized data
   eset.rma <- reactive({
-    req(uQuery)
-    e <- uQuery()
+    req(gdsObj)
+    e <- gdsObj()
     e <- GDS2eSet(e, do.log2=TRUE)
     e
   })
   
   # update checkbox with phenodata
-  output$selectPlot <- renderUI({
+  output$selectPhenoData <- renderUI({
     tagList(
-      box(
-        selectInput("check1", "Choose first pheno: ",
-                    choices = colnames(pData(eset.rma()))[2:3]),
-        actionButton("goToPlot", "Go to Plot") 
+      box(title = "Phenotype columns", status = "primary", solidHeader = TRUE,
+          collapsible = TRUE, width = 12,
+          selectInput("check1", "Choose first pheno: ",
+                      choices = colnames(pData(eset.rma()))[2:3]),
+          actionButton("goToPlot", "Go to Plot") 
       )
     )
   })
   
   # update array description
-  output$arraydesc <- renderUI({
-    req(uQuery())
-    data <- uQuery()
+  output$ExpDesc <- renderUI({
+    req(gdsObj())
+    data <- gdsObj()
     box(title = "Quick Description", status = "primary", solidHeader = TRUE,
-        collapsible = TRUE,
+        collapsible = TRUE, width = 12,
         p(Meta(data)$description[1])
     )
   })
@@ -239,7 +244,7 @@ server <- function(input, output, session) {
     ggplot(data, aes(x=sample, y=value, fill=genotype)) + geom_boxplot()
   })
   
-  ## plot ma
+  ### plot ma
   output$plot.MA <- renderPlot({
     req(eset.rma())
     g <- groups()
@@ -253,17 +258,18 @@ server <- function(input, output, session) {
   
   
   ######## GENE EXPRESSION ##########
-  ### Plot 2
-  output$plot2 <- renderPlot({
+  ### Heat map plot
+  output$plot.heatMap <- renderD3heatmap({
     req(eset.rma())
-    y<- exprs(eset.rma())
+    expSet<- exprs(eset.rma())
     tab <- tab()
     labCol<- labCol()
-    heatmap(y[row.names(tab),], labCol = labCol, scale="none", cexRow=0.5)
+    expDataName = expSet[row.names(tab),]
+    d3heatmap(expDataName[1:20,], labCol = labCol, scale="none", cexRow=0.5)
   })
   
-  ## Plot individual gene expression
-  output$plot.gene1 <- renderPlot({
+  ### Plot individual gene expression
+  output$plot.gene1 <- renderPlotly({
     req(eset.rma(), groups())
     y<- exprs(eset.rma())
     g<- y[23,]
