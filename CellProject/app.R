@@ -1,11 +1,11 @@
 ## app.R ##
 
-#Upload max file size to 20M
+# Upload max file size to 20M
 options(shiny.maxRequestSize=20*1024^2)
-#Show app in port 2020
+# Show app in port 2020
 options(shiny.port = 2020)
 
-#Libraries
+# Libraries
 library(shinydashboard)
 library(Biobase)
 library(GEOquery)
@@ -19,43 +19,136 @@ library(annotate)
 library(plotly)
 library(d3heatmap)
 library(DBI)
-library(digest)
+# library(digest)
 # library(EnhancedVolcano)
 
 ############################## UI INTERFACE #############################
 
 ## DASHBOARD
-#Create a shiny dasboard page
+# Create a shiny dasboard page
 ui <- dashboardPage(
-  skin = "red", #set header color to red
+  skin = "red", # set header color to red
   
   ## HEADER
   dashboardHeader(
-    title = "Gene Chips Analysis" #put a title in header
+    title = "Gene Chips Analysis" # put a title in header
   ),
   
   ## SIDEBAR
   # Create element in a left sidebar
   dashboardSidebar(
     # Create a menu where we can add multiples menu items
-    sidebarMenu(id="sidebar", #set an id to sidebar menu
-                #Create an item where we can add an id and an icon
+    sidebarMenu(id="sidebar", # set an id to sidebar menu
+                # Create an item where we can add an id and an icon
                 menuItem("Home", tabName = "home", icon = icon("home")),
-                menuItem("Plot", tabName = "plot", icon = icon("chart-bar"))
+                menuItem("Queries", tabName = "queries", icon = icon("keyboard")),
+                menuItem("Plot", tabName = "plot", icon = icon("chart-bar")),
+                menuItem("Data", tabName = "data", icon = icon("table"))
     )
   ),
   
   ## BODY
-  #create elements in body app
+  # create elements in body app
   dashboardBody(
     
     # Create a conditional panel which olny show his content
     # when sidebar menu id is equal whith menu item id
     conditionalPanel(
+      
       ## PANEL HOME
-      # show input box when id sidebar is equal with id "home"
+      # show information about NVBI Geo objects
       condition = "input.sidebar == 'home'",
       
+      # Create a body tab panel
+      tabsetPanel(
+        type = "tabs",
+        # Create tab and add a title
+        tabPanel("NCBI Geo",
+                 fluidRow(
+                   box(width = 12,
+                       h1("Overview of GEO"),
+                       p("The NCBI Gene Expression Omnibus (GEO) serves as a public repository
+                         for a wide range of high-throughput experimental data. These data include
+                         single and dual channel microarray-based experiments measuring mRNA,
+                         genomic DNA, and protein abundance, as well as non-array techniques
+                         such as serial analysis of gene expression (SAGE), mass spectrometry
+                         proteomic data, and high-throughput sequencing data.
+                         
+                         At the most basic level of organization of GEO, there are four basic entity types.
+                         The first three (Sample, Platform, and Series) are supplied by users; the fourth,
+                         the dataset, is compiled and curated by GEO staff from the user-submitted data.
+                         See the",
+                         a("GEO home page", href="https://www.ncbi.nlm.nih.gov/geo/"),
+                         "for more information.")
+                   ),
+                   box(
+                     width = 12,
+                     h2("Platforms"),
+                     p("A Platform record describes the list of elements on the array 
+                       (e.g., cDNAs, oligonucleotide probesets, ORFs, antibodies) 
+                       or the list of elements that may be detected and quantified in that experiment 
+                       (e.g., SAGE tags, peptides). Each Platform record is assigned a unique and stable 
+                       GEO accession number (GPLxxx). A Platform may reference many Samples that have been 
+                       submitted by multiple submitters.")
+                   ),
+                   box(
+                     width = 12,
+                     h2("Samples"),
+                     p("A Sample record describes the conditions under which an individual Sample was
+                       handled, the manipulations it underwent, and the abundance measurement of each
+                       element derived from it. Each Sample record is assigned a unique and stable GEO
+                       accession number (GSMxxx). A Sample entity must reference only one Platform and
+                       may be included in multiple Series.")
+                   ),
+                   box(
+                     width = 12,
+                     h2("Series"),
+                     p("A Series record defines a set of related Samples considered to be part of a group,
+                       how the Samples are related, and if and how they are ordered. A Series provides a
+                       focal point and description of the experiment as a whole. Series records may also
+                       contain tables describing extracted data, summary conclusions, or analyses.
+                       Each Series record is assigned a unique and stable GEO accession number (GSExxx).
+                       Series records are available in a couple of formats which are handled by GEOquery
+                       independently. The smaller and new GSEMatrix files are quite fast to parse; a simple
+                       flag is used by GEOquery to choose to use GSEMatrix files (see below).")
+                   ),
+                   box(
+                     width = 12,
+                     h2("Datasets"),
+                     p("GEO DataSets (GDSxxx) are curated sets of GEO Sample data. A GDS record represents 
+                       a collection of biologically and statistically comparable GEO Samples and forms the 
+                       basis of GEO's suite of data display and analysis tools. Samples within a GDS refer 
+                       to the same Platform, that is, they share a common set of probe elements. Value 
+                       measurements for each Sample within a GDS are assumed to be calculated in an 
+                       equivalent manner, that is, considerations such as background processing and 
+                       normalization are consistent across the dataset. Information reflecting experimental 
+                       design is provided through GDS subsets.")
+                   )
+                 )
+        ),
+        tabPanel(
+          "Micro arrays",
+          fluidRow(
+            box(
+              width = 12,
+              h1("To Do"),
+              a("Micro arrays en espanyol",
+                href="https://www.cabimer.es/web3/unidades-apoyo/genomica/microarrays-de-affymetrix/")
+            )
+          )
+        )
+      )
+    ),
+    
+    # Create a conditional panel which olny show his content
+    # when sidebar menu id is equal whith menu item id
+    conditionalPanel(
+      
+      ## PANEL QUERIES
+      # show input box when id sidebar is equal with id "queries"
+      condition = "input.sidebar == 'queries'",
+      
+      ####
       # Create a fuild row where we can add boxes or columns
       fluidRow(
         ## BOX QUERY
@@ -70,6 +163,7 @@ ui <- dashboardPage(
           # add a action button
           actionButton("search", "Search ID")
         ),
+        
         ## BOX QUERY FROM DDBB
         # Create a box which contains a reactive function which
         # can be rendered to others inputs or outputs objects
@@ -87,6 +181,9 @@ ui <- dashboardPage(
           actionButton("upload", "Upload file")
         )
       ),
+      
+      textOutput("queryError"),
+      
       ## BOX PHENO CHOICE
       # create a reactive box
       fluidRow(
@@ -95,10 +192,13 @@ ui <- dashboardPage(
       )
     ),
     
-    ## PANEL PLOTS
-    # Conditional panel which show plots when sidebar id is equal with "plot"
+    # Conditional panel which show plots when 
     conditionalPanel(
+      
+      ## PANEL PLOTS
+      # if sidebar id is equal with "plot" show page
       condition= "input.sidebar == 'plot'",
+      
       # Create a panel of tab in body to show plots
       tabsetPanel(type="tabs",
                   # Create tab and add a title
@@ -140,6 +240,27 @@ ui <- dashboardPage(
                            )
                   )
       )
+    ),
+    
+    # Conditional panel which show gds data in a table
+    conditionalPanel(
+      
+      ## DATA PANEL
+      # if sidebar id is equal with "data" show page
+      condition= "input.sidebar == 'data'",
+      
+      # Create a tab panel in body
+      tabsetPanel(type="tabs",
+                  # Create tab and set title
+                  tabPanel(
+                    "RAW gds data",
+                    DT::dataTableOutput("rawGds") # create a output function to print the table
+                  ),
+                  tabPanel(
+                    "RMA gds data",
+                    DT::dataTableOutput("rmaGds") # create a output function to print the table
+                  )
+      )
     )
   )
 )
@@ -151,6 +272,7 @@ server <- function(input, output, session) {
   
   ##################################### DATABASE #####################################
   
+  ## getConnection
   # try connection to database cellFiles through user root
   getConnection = tryCatch({
     dbConnect(
@@ -160,18 +282,26 @@ server <- function(input, output, session) {
       username = "root",
       password = "root")
   },
-  error = function(e){ #if connection is invalid, error
+  error = function(e){ # if connection is invalid, error
     "Error connecting to database"
   })
   
   ##################################### UI THINGS #####################################
   
-  # Switch to plot tab when click in Go to Plot button
+  ## Observe event
+  # Switch to plot page when click in Go to plot button
   observeEvent(input$goToPlot, {
-    newtab <- switch(input$sidebar, "home" = "plot","plot" = "home")
+    newtab <- switch(input$sidebar, "queries" = "plot", "plot" = "queries")
     updateTabItems(session, "sidebar", newtab)
   })
   
+  # Switch to data page when click in Go to data button
+  observeEvent(input$goToData, {
+    newtab <- switch(input$sidebar, "queries" = "data", "data" = "queries")
+    updateTabItems(session, "sidebar", newtab)
+  })
+  
+  ## selectPhenoData
   # reactive function which render the ui through and id
   # add a box with a select of the columns of the pheno data
   output$selectPhenoData <- renderUI({
@@ -179,30 +309,34 @@ server <- function(input, output, session) {
       box(title = "Phenotype columns", status = "primary", solidHeader = TRUE,
           collapsible = TRUE, width = 12,
           selectInput("pData", "Choose first pheno: ",
-                      choices = colnames(pData(eset.rma()))[2:3]),
-          actionButton("goToPlot", "Go to Plot") 
+                      choices = colnames(pData(eSetRma()))[2:3]),
+          actionButton("goToPlot", "Go to plot"),
+          actionButton("goToData", "Go to data")
       )
     )
   })
-  
+  ## ExpDesc
   # render an ui which show the description of the gds object
   output$ExpDesc <- renderUI({
     req(gdsObj())
-    data <- gdsObj()
+    
+    clearError() # Clear message error
+    
     box(title = "Quick Description", status = "primary", solidHeader = TRUE,
         collapsible = TRUE, width = 12,
-        p(Meta(data)$description[1])
+        p(Meta(gdsObj())$description[1])
     )
   })
   
+  ## gds_db
   # render ui which show a select input with default values of GDS id
   output$gds_db <- renderUI({
-    if(class(getConnection) == "MySQLConnection"){ #enter is connection is valid
+    if(class(getConnection) == "MySQLConnection"){ # enter is connection is valid
       
-      #Close connection when user close app
+      # Close connection when user close app
       on.exit(dbDisconnect(getConnection))
       
-      #Save in result of the query in a data frame
+      # Save in result of the query in a data frame
       filesDT = dbGetQuery(getConnection, "SELECT dbid FROM files
                            WHERE source = 'Geo Datasets'")
       tagList(
@@ -211,7 +345,7 @@ server <- function(input, output, session) {
         actionButton("search_db", "Search ID")
       )
     }
-    else { #if connection is invalid
+    else { # if connection is invalid
       # create a validate panel
       validate(
         # where only show error if getConnection is different of class MySQLConnection
@@ -221,70 +355,97 @@ server <- function(input, output, session) {
     }
   })
   
+  ## rawGds
+  # render raw data frame to table with DT package
+  output$rawGds <- DT::renderDataTable({
+    req(genes.raw()) # required function
+    DT::datatable(genes.raw(), class = "cell-border stripe")
+  })
+  
+  ## rmaGds
+  # render normalized data frame to table with DT package
+  output$rmaGds <- DT::renderDataTable({
+    req(genes.rma()) # required function
+    DT::datatable(genes.rma() , class = "cell-border stripe")
+  })
+  
+  ## clearError
+  # set output errorto blank
+  clearError <-  function(){
+    output$queryError <- renderText({
+      ""
+    })
+  }
+  
+  ## idError
+  # show message error from incorrect geo id
+  idError <- function(){
+    # if data class is different of GDS show error
+    if(class(data) != "GDS"){
+      output$queryError <- renderText({
+        "Please insert a correct GDS ID"
+      })
+      req(data)
+    }
+  }
+  
+  ## idEmpty
+  # show error when id input is empty
+  idEmpty <- function(){
+    # if query id is empty, show error
+    if(input$queryId == ""){
+      output$queryError <- renderText({
+        "Please enter a query ID"
+      })
+      req(input$queryId)
+    }
+  }
+  
+  ## emptyFile
+  # show message error when input file is empty
+  emptyFile <- function(){
+    # if uploaded file is empty show error to user
+    if(length(input$cellFile) == 0){
+      output$queryError <- renderText({
+        "Upload a GDS.gz file"
+      })
+      req(input$cellFile)
+    }
+  }
+  
   ##################################### DATA #####################################
   
-  ## gdsObj: Reactive event
+  ## gdsObjInput: Reactive event
   # Download GDS object from NCBI Geo and saves into a Geo Object
   gdsObjInput <- eventReactive(input$search, {
-    #if query id is empty, show error
-    validate(
-      need(input$queryId != "", "Please enter a query ID")
-    )
-    # saves in data the result of getGEO function
-    data <- try(getGEO(input$queryId))
-    
-    # if data class is different of GDS show error
-    validate(
-      need(class(data) == "GDS", "Please insert a correct GDS ID")
-    )
-    
+    idEmpty() # show error if id is empty
+    data <- try(getGEO(input$queryId)) # saves downloaded gds object
+    idError() # show error if id in invalid
     return(data)
   })
   
   ## gdsObj: Reactive event
   # Download GDS obj through the id of the data base
   gdsObjDB <- eventReactive(input$search_db, {
-    data <- getGEO(input$selectIdDb)
+    data <- getGEO(input$selectIdDb) # saves downloaded gds object
     return(data)
   })
-  
-  # if(input$queryId == ""){
-  #   output$queryError <- renderText({
-  #     "Please enter a query ID"
-  #   })
-  #   stop()
-  # }
-  # 
-  # if(isClass(data)){
-  #   output$queryError <- renderText({
-  #     "Please insert a correct GDS ID"
-  #   })
-  #   stop()
-  # }
   
   ## gdsObjFile: Reactive event
   # create gds obj with the gds file uploaded by the user
   gdsObjFile <- eventReactive(input$upload, {
-    
-    #if uploaded file is empty show error to user
-    validate(
-      need(length(input$cellFile) != 0 , "Upload a GDS.gz file")
-    )
-    
-    #Unzip .gz file in temp directory and rename it to the name of the uploaded file
-    #without the .gz extention
+    emptyFile() # show message error
+    # Unzip .gz file in temp directory and rename it to the name of the uploaded file
+    # without the .gz extention
     dest_dir = paste(tempdir(), "/", tools::file_path_sans_ext(input$cellFile$name),
                      sep = "")
     # unzip .gz file in dest_dir and overwrite it
     gunzip(input$cellFile$datapath, dest_dir, overwrite=TRUE)
 
-    #Convert .soft file to GDS object
+    # Convert .soft file to GDS object
     data <- try(getGEO(filename = dest_dir))
     
-    # if data class is different of GDS show error
-    validate(
-      need(class(data) == "GDS", "Please insert a correct GDS ID")
-    )
+    idError() # show error if id in invalid
 
     return(data)
   })
@@ -292,8 +453,8 @@ server <- function(input, output, session) {
   ## gdsObj: r function
   # Function which manages to return the same value but differents ways
   gdsObj <- function(){
-    # return gds obj only is their class is equal to GDS class
     
+    # return gds obj only is their class is equal to GDS class
     if(class(gdsObjInput()) == "GDS"){
       return(gdsObjInput())
     }
@@ -305,17 +466,17 @@ server <- function(input, output, session) {
     }
   }
   
-  ## eset.raw
+  ## eSetRaw
   # transform a GDS obj to Expression set obj
-  eset.raw <- reactive({
+  eSetRaw <- reactive({
     # need the function which return the gds obj
     req(gdsObj)
     GDS2eSet(gdsObj(), do.log2=FALSE)
   })
   
-  ## eset.rma
+  ## eSetRma
   # transform a GDS obj to Expression set obj and normalized it
-  eset.rma <- reactive({
+  eSetRma <- reactive({
     # need the function which return the gds obj
     req(gdsObj)
     GDS2eSet(gdsObj(), do.log2=TRUE)
@@ -328,20 +489,20 @@ server <- function(input, output, session) {
     req(input$pData)
     # create the pheno data of normalized values an return the values
     # of the column selected by user
-    pData(eset.rma())[,input$pData]
+    pData(eSetRma())[,input$pData]
   }) 
   
   ## genes.raw
   # create a data frame with the raw data
   genes.raw <- reactive({
     # need functions where create war dara and factor levels
-    req(eset.raw(), facLevel())
+    req(eSetRaw(), facLevel())
     
     # saves the sample name of the raw data
-    sample <- sampleNames(eset.raw())
+    sample <- sampleNames(eSetRaw())
     
-    #Extract expression and error measurements from raw data
-    y <- exprs(eset.raw())
+    # Extract expression genes from raw data
+    y <- exprs(eSetRaw())
     
     # call function which create factor levels of pheno data
     facLevel<- facLevel()
@@ -357,16 +518,16 @@ server <- function(input, output, session) {
   })
   
   ## genes.rma
-  # create a data frame with the raw data
+  # create a data frame with the norm data
   genes.rma <- reactive({
     # need functions where create war dara and factor levels
-    req(eset.rma(), facLevel())
+    req(eSetRma(), facLevel())
     
     # saves the sample name of the norm data
-    sample <- sampleNames(eset.rma())
+    sample <- sampleNames(eSetRma())
     
-    #Extract expression and error measurements from norm data
-    y <- exprs(eset.rma())
+    # Extract expression genes from norm data
+    y <- exprs(eSetRma())
     
     # call function which create factor levels of pheno data
     facLevel<- facLevel()
@@ -384,13 +545,13 @@ server <- function(input, output, session) {
   ## ebayes
   # data for the heatmap (normalized)
   ebayes <- reactive({
-    #need the factor levels function and normalized data 
-    req(facLevel(), eset.rma())
+    # need the factor levels function and normalized data 
+    req(facLevel(), eSetRma())
     
-    #saves the value of expression data 
-    y <- exprs(eset.rma())
+    # saves the value of expression data 
+    y <- exprs(eSetRma())
     
-    #factor levels of the column selected by user
+    # factor levels of the column selected by user
     g <- facLevel()
     
     # create a matrix which create columns where each factor level
@@ -398,30 +559,31 @@ server <- function(input, output, session) {
     design <- model.matrix(~factor(g))
     
     # create a linear model where add the value of each feature
-    # to the fators levels of design
+    # to the factors levels of design
     fit <- lmFit(y, design)
     
     return(eBayes(fit))
   })
   
+  ## ranked
+  # reactive function which return the top tanked 150 genes
   ranked <- reactive({
     # require ebayes function()
     req(ebayes())
-    e <- ebayes()
     
     # Extract the top ranked genes values from the linear model
+    # @coef= 2 column number or column name
     # @adjust="fdr" control the false discovery rate
-    return(topTable(e, coef=2, adjust="fdr", n=150))
+    # @n=150  only select the first 150
+    return(topTable(ebayes(), coef=2, adjust="fdr", n=150))
   })
   
   ## labColNames
   # return factor levels as a character vector
   labColNames<- reactive({
-    #require this function
+    # require this function
     req(facLevel())
-    g <- facLevel()
-    g <- as.character(g)
-    return(g)
+    return(as.character(facLevel()))
   }) 
   
   ##################################### PLOTS  ##################################### 
@@ -471,10 +633,10 @@ server <- function(input, output, session) {
   # of the normalized data of the GDS obj
   output$plot.MA <- renderPlot({
     # require this function
-    req(eset.rma())
+    req(eSetRma())
     g <- facLevel() # factors levels
     Index <- as.numeric(g) # numeric factor levels
-    y <- exprs(eset.rma()) # expression data of norm gds obj
+    y <- exprs(eSetRma()) # expression data of norm gds obj
     
     # calculate mean of row where column
     # and substract the same column where 
@@ -499,10 +661,10 @@ server <- function(input, output, session) {
   # render an interactive heat map plot
   output$plot.heatMap <- renderD3heatmap({
     # requiere this functions
-    req(eset.rma())
+    req(eSetRma())
     
-    #saves the expression genes of the normalized data
-    expSet<- exprs(eset.rma())
+    # saves the expression genes of the normalized data
+    expSet<- exprs(eSetRma())
     
     # saves the 150 genes of the linear model
     ranked <- ranked()
@@ -524,8 +686,8 @@ server <- function(input, output, session) {
   
   ### Plot individual gene expression
   output$plot.gene1 <- renderPlotly({
-    req(eset.rma(), facLevel())
-    y<- exprs(eset.rma())
+    req(eSetRma(), facLevel())
+    y<- exprs(eSetRma())
     g<- y[23,]
     group <- facLevel()
     dt <- data.frame("Index"=group, "Expr"=g)
@@ -534,14 +696,14 @@ server <- function(input, output, session) {
   })
   
   ## Venn diagram
-  # reactive function which render 
+  # reactive function which render a volcano plot
   output$plot.volcano <- renderPlot({
-    eb <- ebayes()
-    volcanoplot(eb, coef=2, highlight=5)
+    volcanoplot(ebayes(), coef=2, highlight=5)
   })
   
 }
 
+# launch shiny app
 shinyApp(ui, server)
 
 # ##################################### LOG IN #####################################
