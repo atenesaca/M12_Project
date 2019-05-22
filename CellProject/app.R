@@ -20,7 +20,7 @@ library(plotly)
 library(d3heatmap)
 library(DBI)
 # library(digest)
-# library(EnhancedVolcano)
+library(EnhancedVolcano)
 
 ############################## UI INTERFACE #############################
 
@@ -140,7 +140,7 @@ ui <- dashboardPage(
       )
     ),
     
-    # Create a conditional panel which olny show his content
+    # Create a conditional panel which only show his content
     # when sidebar menu id is equal whith menu item id
     conditionalPanel(
       
@@ -227,7 +227,14 @@ ui <- dashboardPage(
                   tabPanel("Gene Expression",
                            # reactive function which show a heat map plot
                            fluidRow(
-                             d3heatmapOutput("plot.heatMap")
+                             column(width = 8,
+                                    d3heatmapOutput("plot.heatMap", height = "80vh")
+                                    ),
+                             column(width=4,
+                                    sliderInput("sli_heatmap", label = "Please select the 
+                                    amount of genes to display in heatmap", min = 15,
+                                                max = 300, value = 30)
+                             )
                            ),
                            # reactive function which show a plot of genes
                            fluidRow(
@@ -236,7 +243,7 @@ ui <- dashboardPage(
                            ),
                            # reactive function which show a volcano plot
                            fluidRow(
-                             plotOutput("plot.volcano")
+                             plotOutput("plot.volcano", height = 800)
                            )
                   )
       )
@@ -556,7 +563,7 @@ server <- function(input, output, session) {
     
     # create a matrix which create columns where each factor level
     # has positive value in his position
-    design <- model.matrix(~factor(g))
+    design <- model.matrix(~ g)
     
     # create a linear model where add the value of each feature
     # to the factors levels of design
@@ -568,14 +575,10 @@ server <- function(input, output, session) {
   ## ranked
   # reactive function which return the top tanked 150 genes
   ranked <- reactive({
-    # require ebayes function()
     req(ebayes())
-    
-    # Extract the top ranked genes values from the linear model
-    # @coef= 2 column number or column name
-    # @adjust="fdr" control the false discovery rate
-    # @n=150  only select the first 150
-    return(topTable(ebayes(), coef=2, adjust="fdr", n=150))
+    e <- ebayes()
+    t <- topTable(e, coef = 2, adjust="fdr", n=1000)
+    t
   })
   
   ## labColNames
@@ -651,7 +654,7 @@ server <- function(input, output, session) {
     # @xlab = label name of the axis
     # @ylab = label name of the axis
     # @abline h  create horitzontal line at values 1 and -1
-    smoothScatter(a, d, main="MA plot", xlab="A", ylab="M")
+    smoothScatter(a, d, main="MA plot", xlab="Mean of gene expressions", ylab="Means diff of pheno groups")
     abline(h=c(-1,1), col="red")
   })
   
@@ -660,17 +663,10 @@ server <- function(input, output, session) {
   ### Heat map plot
   # render an interactive heat map plot
   output$plot.heatMap <- renderD3heatmap({
-    # requiere this functions
     req(eSetRma())
-    
-    # saves the expression genes of the normalized data
     expSet<- exprs(eSetRma())
-    
-    # saves the 150 genes of the linear model
     ranked <- ranked()
     labColNames<- labColNames() # name of the columns
-    # select the values of the expression genes where the values is equal
-    # with the 150 genes from linear model
     expDataName = expSet[row.names(ranked),]
     
     # create an interactive heatmap
@@ -679,8 +675,8 @@ server <- function(input, output, session) {
     # @cexRow = positive numbers
     # @dendogram = number of coluns to draw
     # @k_row = number of groups to color the branches in the row
-    # @k_col = number of groups to color the branches in the row
-    d3heatmap(expDataName[1:20,], labCol = labColNames, cexRow=0.5, dendrogram="both",
+    # @k_col = number of groups to color the branches in the column
+    d3heatmap(expDataName[1:input$sli_heatmap,], labCol = labColNames, cexRow=0.5,
               k_row=3, k_col=3)
   })
   
@@ -695,10 +691,15 @@ server <- function(input, output, session) {
       theme(legend.position = "none")
   })
   
-  ## Venn diagram
+  ## Volcano plot
   # reactive function which render a volcano plot
   output$plot.volcano <- renderPlot({
-    volcanoplot(ebayes(), coef=2, highlight=5)
+    req(ranked())
+    t<-ranked()
+    EnhancedVolcano(t,
+                    lab = rownames(t),
+                    x = 'logFC',
+                    y = 'P.Value')
   })
   
 }
