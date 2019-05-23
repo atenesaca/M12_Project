@@ -1,6 +1,7 @@
 1- Crear un nuevo tab que sea "Descripción" con toda la metaData posible (ojo, ver formato)
-2- Crear con ggplot: cluster, diagrama de venn, volcano plot
+2- Crear con ggplot: cluster, diagrama de venn,
 3 - Tablas: toptable, goTable
 4 - Ver y añadir posiblemente análisis GSEA: showSigOfNodes 
 (http://openaccess.uoc.edu/webapps/o2/bitstream/10609/82725/6/jbertolTFM0618memoria.pdf ver último apartado)
 5- Crear un nuevo tab con Help, información sobre microarrays, etc
+ - Mejorar el welcome

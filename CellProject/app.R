@@ -1,12 +1,13 @@
 ## app.R ##
 
 # Upload max file size to 20M
-options(shiny.maxRequestSize=20*1024^2)
+#options(shiny.maxRequestSize=20*1024^2)
 # Show app in port 2020
 options(shiny.port = 2020)
 
 # Libraries
 library(shinydashboard)
+library(shinyWidgets)
 library(Biobase)
 library(GEOquery)
 library("reshape2")
@@ -21,6 +22,7 @@ library(d3heatmap)
 library(DBI)
 # library(digest)
 library(EnhancedVolcano)
+library(ggdendro)
 
 ############################## UI INTERFACE #############################
 
@@ -140,11 +142,10 @@ ui <- dashboardPage(
       )
     ),
     
-    # Create a conditional panel which only show his content
-    # when sidebar menu id is equal whith menu item id
+    ###### PANEL QUERIES  ######
     conditionalPanel(
       
-      ## PANEL QUERIES
+      
       # show input box when id sidebar is equal with id "queries"
       condition = "input.sidebar == 'queries'",
       
@@ -192,45 +193,48 @@ ui <- dashboardPage(
       )
     ),
     
-    # Conditional panel which show plots when 
+    ######## PANEL PLOTS  ###### 
     conditionalPanel(
       
-      ## PANEL PLOTS
+     
       # if sidebar id is equal with "plot" show page
       condition= "input.sidebar == 'plot'",
       
       # Create a panel of tab in body to show plots
       tabsetPanel(type="tabs",
-                  # Create tab and add a title
                   tabPanel("Quality Control",
-                           # Create a fuild row with columns
                            fluidRow(
-                             # reactive function which show a box plot of raw data
                              column(6,plotOutput("plot.raw1")
                              ),
-                             # reactive function which show a box plot of normalized data
                              column(6,plotOutput("plot.rma1")
                              )
                            ),
-                           # Create a fuild row with columns
                            fluidRow(
-                             # add a HTML line break
+                             br(),
+                             column(width=8, offset=2, align="center",
+                                    selectInput("select.dendro", "Choose method for dendrogram: ",
+                                         choices = c("euclidean", "maximum", "manhattan",
+                                                     "canberra", "binary", "minkowski"))),
+                             column(6, plotOutput("dendro.raw")),
+                             column(6, plotOutput("dendro.rma"))
+                           ),
+                           fluidRow(
+                             
                              br(),
                              # reactive function which show MA plot
                              column(width=8, offset=2, align="center",
                                     plotOutput("plot.MA")
                              )
                            )
-                           
                   ),
                   # Create tab and add a title
                   tabPanel("Gene Expression",
                            # reactive function which show a heat map plot
                            fluidRow(
-                             column(width = 8,
+                             column(width = 9,
                                     d3heatmapOutput("plot.heatMap", height = "80vh")
                                     ),
-                             column(width=4,
+                             column(width=3,
                                     sliderInput("sli_heatmap", label = "Please select the 
                                     amount of genes to display in heatmap", min = 15,
                                                 max = 300, value = 30)
@@ -239,7 +243,10 @@ ui <- dashboardPage(
                            # reactive function which show a plot of genes
                            fluidRow(
                              br(),
-                             plotlyOutput("plot.gene1")
+                             column(9, plotlyOutput("plot.gene1")),
+                             column(3, searchInput("searchGene", label="Search gene to evaluate",
+                                                   btnReset = icon("remove"), btnSearch = icon("search")))
+                             
                            ),
                            # reactive function which show a volcano plot
                            fluidRow(
@@ -301,6 +308,7 @@ server <- function(input, output, session) {
     newtab <- switch(input$sidebar, "queries" = "plot", "plot" = "queries")
     updateTabItems(session, "sidebar", newtab)
   })
+
   
   # Switch to data page when click in Go to data button
   observeEvent(input$goToData, {
@@ -483,92 +491,75 @@ server <- function(input, output, session) {
   
   ## eSetRma
   # transform a GDS obj to Expression set obj and normalized it
+  # need the function which return the gds obj
   eSetRma <- reactive({
-    # need the function which return the gds obj
     req(gdsObj)
     GDS2eSet(gdsObj(), do.log2=TRUE)
   })
   
   ## facLevel
   # Extract factor levels of the pheno data from the second column of expSet
+  # need the user input a select value
+  # create the pheno data of normalized values an return the values
+  # of the column selected by user
   facLevel <- reactive({
-    # need the user input a select value
     req(input$pData)
-    # create the pheno data of normalized values an return the values
-    # of the column selected by user
     pData(eSetRma())[,input$pData]
   }) 
   
   ## genes.raw
   # create a data frame with the raw data
+  # need functions where create war dara and factor levels
+  # saves the sample name of the raw data
+  # Extract expression genes from raw data
+  # call function which create factor levels of pheno data
+  # convert objects to molten data frame
+  # create a new column in molten dataframe where add factor level
+  # to each column if the value of sample matchs with value of molten sample
   genes.raw <- reactive({
-    # need functions where create war dara and factor levels
     req(eSetRaw(), facLevel())
-    
-    # saves the sample name of the raw data
     sample <- sampleNames(eSetRaw())
-    
-    # Extract expression genes from raw data
     y <- exprs(eSetRaw())
-    
-    # call function which create factor levels of pheno data
     facLevel<- facLevel()
-    
-    # convert objects to molten data frame
     g<- melt(y, varnames = c( "probe", "sample"))
-    
-    # create a new column in molten dataframe where add factor level
-    # to each column if the value of sample matchs with value of molten sample
     g$facLevel <- facLevel[match(g$sample, sample)]
-    
     return(g)
   })
   
   ## genes.rma
   # create a data frame with the norm data
+  # need functions where create war dara and factor levels
+  # saves the sample name of the norm data
+  # Extract expression genes from norm data
+  # call function which create factor levels of pheno data
+  # convert objects to molten data frame
+  # create a new column in molten dataframe where add factor level
+  # to each column if the value of sample matchs with value of molten sample
   genes.rma <- reactive({
-    # need functions where create war dara and factor levels
     req(eSetRma(), facLevel())
-    
-    # saves the sample name of the norm data
     sample <- sampleNames(eSetRma())
-    
-    # Extract expression genes from norm data
     y <- exprs(eSetRma())
-    
-    # call function which create factor levels of pheno data
     facLevel<- facLevel()
-    
-    # convert objects to molten data frame
     g<- melt(y, varnames = c( "probe", "sample"))
-    
-    # create a new column in molten dataframe where add factor level
-    # to each column if the value of sample matchs with value of molten sample
     g$facLevel <- facLevel[match(g$sample, sample)]
-    
     return(g)
   })
   
   ## ebayes
   # data for the heatmap (normalized)
+  # need the factor levels function and normalized data 
+  # saves the value of expression data 
+  # factor levels of the column selected by user
+  # create a matrix which create columns where each factor level
+  # has positive value in his position
+  # create a linear model where add the value of each feature
+  # to the factors levels of design
   ebayes <- reactive({
-    # need the factor levels function and normalized data 
     req(facLevel(), eSetRma())
-    
-    # saves the value of expression data 
     y <- exprs(eSetRma())
-    
-    # factor levels of the column selected by user
     g <- facLevel()
-    
-    # create a matrix which create columns where each factor level
-    # has positive value in his position
     design <- model.matrix(~ g)
-    
-    # create a linear model where add the value of each feature
-    # to the factors levels of design
     fit <- lmFit(y, design)
-    
     return(eBayes(fit))
   })
   
@@ -583,11 +574,22 @@ server <- function(input, output, session) {
   
   ## labColNames
   # return factor levels as a character vector
+  # require this function
   labColNames<- reactive({
-    # require this function
     req(facLevel())
     return(as.character(facLevel()))
-  }) 
+  })
+  
+  ##### gene map: probe-> geneSymbol
+  gene.map <- reactive({
+    req(eSetRma(), genes.rma())
+    matriz <- eSetRma()
+    g <- genes.rma()
+    probenames <- rownames(matriz)
+    gen <- fData(matriz)[,3]
+    g$gen <- gen[match(g$probe, probenames)]
+    g
+  })
   
   ##################################### PLOTS  ##################################### 
   
@@ -629,6 +631,28 @@ server <- function(input, output, session) {
     # @theme rotate the text 90 degrees
     ggplot(normData, aes(x=sample, y=value, fill=facLevel)) + geom_boxplot() +
       theme(axis.text.x = element_text(angle = 90))
+  })
+  
+  ##### Dendrogram ####
+  
+  output$dendro.raw <- renderPlot({
+    req(eSetRaw())
+    me<-input$select.dendro
+    y <- eSetRaw()
+    clust.euclid.average <- hclust(dist(t(exprs(y)), method=me))
+    ggdendrogram(clust.euclid.average, rotate = TRUE, theme_dendro = FALSE) +
+      labs(title = "BEFORE Normalization") +
+      theme(plot.title = element_text(face="bold"), axis.title= element_blank()) 
+  })
+  
+  output$dendro.rma <- renderPlot({
+    req(eSetRma())
+    me<-input$select.dendro
+    y <- eSetRma()
+    clust.euclid.average <- hclust(dist(t(exprs(y)), method=me))
+    ggdendrogram(clust.euclid.average, rotate = TRUE, theme_dendro = FALSE) +
+      labs(title = "AFTER Normalization") +
+      theme(plot.title = element_text(face="bold"), axis.title= element_blank()) 
   })
   
   ### plot ma
@@ -684,8 +708,13 @@ server <- function(input, output, session) {
   output$plot.gene1 <- renderPlotly({
     req(eSetRma(), facLevel())
     y<- exprs(eSetRma())
-    g<- y[23,]
     group <- facLevel()
+    gene <- input$searchGene
+    if(gene==""){
+      g<- y[1,]
+    } else {
+      g<- y[gene,]
+    }
     dt <- data.frame("Index"=group, "Expr"=g)
     ggplot(dt, aes(x=group, y=Expr)) + geom_jitter(aes(colour=group)) +
       theme(legend.position = "none")
