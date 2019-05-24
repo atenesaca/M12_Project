@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS cellfiles;
+-- DROP DATABASE IF EXISTS cellfiles;
 
-CREATE DATABASE cellfiles CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- CREATE DATABASE cellfiles CHARACTER SET utf8 COLLATE utf8 _general_ci;
 
-use cellfiles;
+-- use cellfiles;
 
 -- Creacion tabla users
 CREATE TABLE `users` (
@@ -33,9 +33,13 @@ PRIMARY KEY (`id`)
 -- Insersion de datos
 
 INSERT INTO `files`(`filename`, `source`, `dbid`) VALUES
-("cancer","ArrayExpress","E-MTAB-7108"),
-("prostate cancer","GeoQuery","GDS6100"),
-("breats cancer","ArrayExpress","E-MTAB-6703");
+('Identification of genome wide Hoxa9 binding sites in primary murine and human AML cells', 'ArrayExpress', 'E-MTAB-7108'),
+('MicroRNA-135b overexpression effect on prostate ca', 'Geo Datasets', 'GDS6100'),
+('A microarray meta-dataset of breast cancer', 'ArrayExpress', 'E-MTAB-6703'),
+('Diet-induced obesity model: white adipose tissue', 'Geo Datasets', 'GDS6247'),
+('Pulmonary dendritic cell subsets', 'Geo Datasets', 'GDS5663'),
+('Human and chimpanzee TS12KOS vector-generated induced pluripotent stem cells', 'Geo Datasets', 'GDS5443'),
+('Renal clear cell carcinoma (HG-U133B)', 'Geo Datasets', 'GDS507');
 
 -- Creacion tabla userfiles
 CREATE TABLE `userfiles` (
