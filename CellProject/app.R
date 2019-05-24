@@ -15,7 +15,7 @@ library(ggplot2)
 library(dplyr)
 library(limma)
 library(annotate)
-# library(shinycustomloader)
+#library(shinycustomloader)
 # library(shinyjs)
 library(plotly)
 library(d3heatmap)
@@ -243,13 +243,17 @@ ui <- dashboardPage(
                            # reactive function which show a plot of genes
                            fluidRow(
                              br(),
-                             column(9, plotlyOutput("plot.gene1")),
+                             column(9, plotlyOutput("plot.gene1",  height = "80vh")),
                              column(3, searchInput("searchGene", label="Search gene to evaluate",
-                                                   btnReset = icon("remove"), btnSearch = icon("search")))
+                                                   btnReset = icon("remove"), btnSearch = icon("search")),
+                                    radioButtons("radioGene", "Select Raw or Normalized data:",
+                                                 choices=c("Raw", "Normalized")))
                              
                            ),
                            # reactive function which show a volcano plot
                            fluidRow(
+                             br(),
+                             br(),
                              plotOutput("plot.volcano", height = 800)
                            )
                   )
@@ -448,20 +452,17 @@ server <- function(input, output, session) {
   
   ## gdsObjFile: Reactive event
   # create gds obj with the gds file uploaded by the user
+  # Unzip .gz file in temp directory and rename it to the name of the uploaded file
+  # without the .gz extention
+  # unzip .gz file in dest_dir and overwrite it
+  # Convert .soft file to GDS object
   gdsObjFile <- eventReactive(input$upload, {
     emptyFile() # show message error
-    # Unzip .gz file in temp directory and rename it to the name of the uploaded file
-    # without the .gz extention
     dest_dir = paste(tempdir(), "/", tools::file_path_sans_ext(input$cellFile$name),
                      sep = "")
-    # unzip .gz file in dest_dir and overwrite it
     gunzip(input$cellFile$datapath, dest_dir, overwrite=TRUE)
-
-    # Convert .soft file to GDS object
     data <- try(getGEO(filename = dest_dir))
-    
     idError() # show error if id in invalid
-
     return(data)
   })
   
@@ -483,8 +484,8 @@ server <- function(input, output, session) {
   
   ## eSetRaw
   # transform a GDS obj to Expression set obj
+  # need the function which return the gds obj
   eSetRaw <- reactive({
-    # need the function which return the gds obj
     req(gdsObj)
     GDS2eSet(gdsObj(), do.log2=FALSE)
   })
@@ -505,7 +506,8 @@ server <- function(input, output, session) {
   facLevel <- reactive({
     req(input$pData)
     pData(eSetRma())[,input$pData]
-  }) 
+  })
+  
   
   ## genes.raw
   # create a data frame with the raw data
@@ -518,12 +520,16 @@ server <- function(input, output, session) {
   # to each column if the value of sample matchs with value of molten sample
   genes.raw <- reactive({
     req(eSetRaw(), facLevel())
-    sample <- sampleNames(eSetRaw())
-    y <- exprs(eSetRaw())
+    matriz <- eSetRaw()
     facLevel<- facLevel()
+    sample <- sampleNames(matriz)
+    y <- exprs(matriz)
+    gen <- fData(matriz)[,3]
+    probenames<-rownames(matriz)
     g<- melt(y, varnames = c( "probe", "sample"))
-    g$facLevel <- facLevel[match(g$sample, sample)]
-    return(g)
+    g$group <- facLevel[match(g$sample, sample)]
+    g$gen <- gen[match(g$probe, probenames)]
+    g
   })
   
   ## genes.rma
@@ -537,12 +543,16 @@ server <- function(input, output, session) {
   # to each column if the value of sample matchs with value of molten sample
   genes.rma <- reactive({
     req(eSetRma(), facLevel())
-    sample <- sampleNames(eSetRma())
-    y <- exprs(eSetRma())
+    matriz <- eSetRma()
     facLevel<- facLevel()
+    sample <- sampleNames(matriz)
+    y <- exprs(matriz)
+    gen <- fData(matriz)[,3]
+    probenames<-rownames(matriz)
     g<- melt(y, varnames = c( "probe", "sample"))
-    g$facLevel <- facLevel[match(g$sample, sample)]
-    return(g)
+    g$group <- facLevel[match(g$sample, sample)]
+    g$gen <- gen[match(g$probe, probenames)]
+    g
   })
   
   ## ebayes
@@ -579,17 +589,7 @@ server <- function(input, output, session) {
     req(facLevel())
     return(as.character(facLevel()))
   })
-  
-  ##### gene map: probe-> geneSymbol
-  gene.map <- reactive({
-    req(eSetRma(), genes.rma())
-    matriz <- eSetRma()
-    g <- genes.rma()
-    probenames <- rownames(matriz)
-    gen <- fData(matriz)[,3]
-    g$gen <- gen[match(g$probe, probenames)]
-    g
-  })
+
   
   ##################################### PLOTS  ##################################### 
   
@@ -598,38 +598,34 @@ server <- function(input, output, session) {
   ### Plots raw
   # reactive function that render the plot to create a bar plot
   # of the raw data of the GDS obj
+  # require this function
+  # Create a plot with the raw genes rawData
+  # @x is the value of the column sample from rawData
+  # @y is the value of the column value from rawData
+  # @fill assign color based on the factor levels
+  # @geom_boxplor type of plot is box
+  # @theme rotate the text 90 degrees
   output$plot.raw1 <- renderPlot({
-    # require this function
     req(genes.raw())
-    
     rawData <- genes.raw()
-    
-    # Create a plot with the raw genes rawData
-    # @x is the value of the column sample from rawData
-    # @y is the value of the column value from rawData
-    # @fill assign color based on the factor levels
-    # @geom_boxplor type of plot is box
-    # @theme rotate the text 90 degrees
-    ggplot(rawData, aes(x=sample, y=value, fill=facLevel)) + geom_boxplot() +
+    ggplot(rawData, aes(x=sample, y=value, fill=group)) + geom_boxplot() +
       theme(axis.text.x = element_text(angle = 90))
   })
   
   #### Plots normalized
   # reactive function that render the plot to create a bar plot
   # of the normalized data of the GDS obj
+  # requiere this function
+  # Create a plot with the norm genes normData
+  # @x is the value of the column sample from normData
+  # @y is the value of the column value from normData
+  # @fill assign color based on the factor levels
+  # @geom_boxplor type of plot is box
+  # @theme rotate the text 90 degrees
   output$plot.rma1 <- renderPlot({
-    # requiere this function
     req(genes.rma())
-    
     normData <- genes.rma()
-    
-    # Create a plot with the norm genes normData
-    # @x is the value of the column sample from normData
-    # @y is the value of the column value from normData
-    # @fill assign color based on the factor levels
-    # @geom_boxplor type of plot is box
-    # @theme rotate the text 90 degrees
-    ggplot(normData, aes(x=sample, y=value, fill=facLevel)) + geom_boxplot() +
+    ggplot(normData, aes(x=sample, y=value, fill=group)) + geom_boxplot() +
       theme(axis.text.x = element_text(angle = 90))
   })
   
@@ -658,69 +654,74 @@ server <- function(input, output, session) {
   ### plot ma
   # reactive function that render the plot to create a MA plot
   # of the normalized data of the GDS obj
+  # require this function
+  # calculate mean of row where column
+  # and substract the same column where 
+  #### TO DO ####
+  # calculate mean of the row values
+  # create a smoothed color density representation of a scatterplot
+  # @Main = main title of the plot
+  # @xlab = label name of the axis
+  # @ylab = label name of the axis
+  # @abline h  create horitzontal line at values 1 and -1
   output$plot.MA <- renderPlot({
-    # require this function
     req(eSetRma())
     g <- facLevel() # factors levels
     Index <- as.numeric(g) # numeric factor levels
     y <- exprs(eSetRma()) # expression data of norm gds obj
-    
-    # calculate mean of row where column
-    # and substract the same column where 
-    #### TO DO ####
     d <- rowMeans(y[,Index==2]) - rowMeans(y[, Index==1])
-    
-    # calculate mean of the row values
     a <- rowMeans(y)
-    
-    # create a smoothed color density representation of a scatterplot
-    # @Main = main title of the plot
-    # @xlab = label name of the axis
-    # @ylab = label name of the axis
-    # @abline h  create horitzontal line at values 1 and -1
     smoothScatter(a, d, main="MA plot", xlab="Mean of gene expressions", ylab="Means diff of pheno groups")
     abline(h=c(-1,1), col="red")
   })
   
   
   ######## GENE EXPRESSION ##########
-  ### Heat map plot
+  
+  ##### Heat map plot  ##### 
   # render an interactive heat map plot
+  # create an interactive heatmap
+  # @expDataName[1:20,] = select the first 20 values to create the heat map
+  # @labCol = names of the columns to use
+  # @cexRow = positive numbers
+  # @dendogram = number of coluns to draw
+  # @k_row = number of groups to color the branches in the row
+  # @k_col = number of groups to color the branches in the column
   output$plot.heatMap <- renderD3heatmap({
     req(eSetRma())
     expSet<- exprs(eSetRma())
     ranked <- ranked()
     labColNames<- labColNames() # name of the columns
     expDataName = expSet[row.names(ranked),]
-    
-    # create an interactive heatmap
-    # @expDataName[1:20,] = select the first 20 values to create the heat map
-    # @labCol = names of the columns to use
-    # @cexRow = positive numbers
-    # @dendogram = number of coluns to draw
-    # @k_row = number of groups to color the branches in the row
-    # @k_col = number of groups to color the branches in the column
     d3heatmap(expDataName[1:input$sli_heatmap,], labCol = labColNames, cexRow=0.5,
               k_row=3, k_col=3)
   })
   
-  ### Plot individual gene expression
+  ### Plot individual gene expression ####
   output$plot.gene1 <- renderPlotly({
-    req(eSetRma(), facLevel())
-    y<- exprs(eSetRma())
-    group <- facLevel()
+    req(facLevel())
     gene <- input$searchGene
-    if(gene==""){
-      g<- y[1,]
+    matriz <- switch(input$radioGene,
+                     "Raw"= eSetRaw(),
+                     "Normalized"= eSetRma(),
+                     eSetRma())
+    gmap <- switch(input$radioGene,
+                   "Raw"= genes.raw(),
+                   "Normalized"= genes.rma(),
+                   genes.raw())
+    y<- exprs(matriz)
+    group <- facLevel()
+    if(gene=="" | !gene %in% gmap$gen){
+      dt<- gmap[1,]
     } else {
-      g<- y[gene,]
+      dt<-gmap %>% 
+        filter(gen==gene)
     }
-    dt <- data.frame("Index"=group, "Expr"=g)
-    ggplot(dt, aes(x=group, y=Expr)) + geom_jitter(aes(colour=group)) +
+    ggplot(dt, aes(x=group, y=value)) + geom_jitter(aes(colour=group)) +
       theme(legend.position = "none")
   })
   
-  ## Volcano plot
+  #### Volcano plot ####
   # reactive function which render a volcano plot
   output$plot.volcano <- renderPlot({
     req(ranked())

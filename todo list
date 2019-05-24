@@ -1,7 +1,10 @@
-1- Crear un nuevo tab que sea "Descripción" con toda la metaData posible (ojo, ver formato)
-2- Crear con ggplot: cluster, diagrama de venn,
-3 - Tablas: toptable, goTable
-4 - Ver y añadir posiblemente análisis GSEA: showSigOfNodes 
+1 - Tablas: toptable, goTable y plots: networking?
+2 - Ver y añadir posiblemente análisis GSEA: showSigOfNodes 
 (http://openaccess.uoc.edu/webapps/o2/bitstream/10609/82725/6/jbertolTFM0618memoria.pdf ver último apartado)
+3 - Mejorar y formatear todos los títulos, ejes, etc de los plots
+4 - Formatear y mejorar primera página de intro (breve explicación, algún botón grande para ir a query)
 5- Crear un nuevo tab con Help, información sobre microarrays, etc
- - Mejorar el welcome
+
+Posibles:
+- login con cookies?
+- algún gráfico 3d?

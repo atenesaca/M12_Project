@@ -2,7 +2,7 @@ library(EnhancedVolcano)
 library(scales)
 geo <- getGEO("gds858", destdir=".")
 
-e <- GDS2eSet(geo, do.log2=TRUE)
+  e <- GDS2eSet(geo, do.log2=TRUE)
 
 class(groups) <- pData(e)[,2]
 
