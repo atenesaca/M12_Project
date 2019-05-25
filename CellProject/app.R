@@ -10,7 +10,7 @@ source("Library.R")
 source("./moduleChangeTheme.R")
 
 # views
-source("views/sidebar.R")
+source("Views/sidebar.R")
 source("Views/main.R")
 source("Views/input.R")
 source("Views/plot.R")

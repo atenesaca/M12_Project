@@ -6,12 +6,13 @@ install.packages('DT')
 install.packages("shinyWidgets")
 install.packages("ggdendro")
 install.packages("BiocManager")
-
-source("http://bioconductor.org/biocLite.R")
-biocLite("GEOquery")
-
+install.packages("RMySQL")
+BiocManager::install("GEOquery")
 BiocManager::install("AnnotationDbi")
-BiocManager::install("EnhancedVolcano")
+if (!requireNamespace("EnhancedVolcano", quietly = TRUE))
+    BiocManager::install("EnhancedVolcano")
 
 library(devtools)
 install_github("nik01010/dashboardthemes")
+
+# sudo apt-get install -y libmariadb-client-lgpl-dev
