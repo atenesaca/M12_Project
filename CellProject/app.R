@@ -2,34 +2,25 @@
 
 # Upload max file size to 20M
 #options(shiny.maxRequestSize=20*1024^2)
-# Show app in port 2020
-options(shiny.port = 2020)
 
 # Libraries
-library(shinydashboard)
-library(shinyWidgets)
-library(Biobase)
-library(GEOquery)
-library("reshape2")
-library(ggplot2)
-library(dplyr)
-library(limma)
-library(annotate)
-#library(shinycustomloader)
-# library(shinyjs)
-library(plotly)
-library(d3heatmap)
-library(DBI)
-# library(digest)
-library(EnhancedVolcano)
-library(ggdendro)
+source("Library.R")
+
+# themes
+source("./moduleChangeTheme.R")
+
+# views
+source("views/sidebar.R")
+source("Views/main.R")
+source("Views/input.R")
+source("Views/plot.R")
+source("Views/table.R")
 
 ############################## UI INTERFACE #############################
 
 ## DASHBOARD
 # Create a shiny dasboard page
 ui <- dashboardPage(
-  skin = "red", # set header color to red
   
   ## HEADER
   dashboardHeader(
@@ -39,247 +30,24 @@ ui <- dashboardPage(
   ## SIDEBAR
   # Create element in a left sidebar
   dashboardSidebar(
-    # Create a menu where we can add multiples menu items
-    sidebarMenu(id="sidebar", # set an id to sidebar menu
-                # Create an item where we can add an id and an icon
-                menuItem("Home", tabName = "home", icon = icon("home")),
-                menuItem("Queries", tabName = "queries", icon = icon("keyboard")),
-                menuItem("Plot", tabName = "plot", icon = icon("chart-bar")),
-                menuItem("Data", tabName = "data", icon = icon("table"))
-    )
+    
+    ### Custom theme
+    uiChangeThemeOutput(),
+    
+    sidebarView()
   ),
   
   ## BODY
   # create elements in body app
   dashboardBody(
     
-    # Create a conditional panel which olny show his content
-    # when sidebar menu id is equal whith menu item id
-    conditionalPanel(
-      
-      ## PANEL HOME
-      # show information about NVBI Geo objects
-      condition = "input.sidebar == 'home'",
-      
-      # Create a body tab panel
-      tabsetPanel(
-        type = "tabs",
-        # Create tab and add a title
-        tabPanel("NCBI Geo",
-                 fluidRow(
-                   box(width = 12,
-                       h1("Overview of GEO"),
-                       p("The NCBI Gene Expression Omnibus (GEO) serves as a public repository
-                         for a wide range of high-throughput experimental data. These data include
-                         single and dual channel microarray-based experiments measuring mRNA,
-                         genomic DNA, and protein abundance, as well as non-array techniques
-                         such as serial analysis of gene expression (SAGE), mass spectrometry
-                         proteomic data, and high-throughput sequencing data.
-                         
-                         At the most basic level of organization of GEO, there are four basic entity types.
-                         The first three (Sample, Platform, and Series) are supplied by users; the fourth,
-                         the dataset, is compiled and curated by GEO staff from the user-submitted data.
-                         See the",
-                         a("GEO home page", href="https://www.ncbi.nlm.nih.gov/geo/"),
-                         "for more information.")
-                   ),
-                   box(
-                     width = 12,
-                     h2("Platforms"),
-                     p("A Platform record describes the list of elements on the array 
-                       (e.g., cDNAs, oligonucleotide probesets, ORFs, antibodies) 
-                       or the list of elements that may be detected and quantified in that experiment 
-                       (e.g., SAGE tags, peptides). Each Platform record is assigned a unique and stable 
-                       GEO accession number (GPLxxx). A Platform may reference many Samples that have been 
-                       submitted by multiple submitters.")
-                   ),
-                   box(
-                     width = 12,
-                     h2("Samples"),
-                     p("A Sample record describes the conditions under which an individual Sample was
-                       handled, the manipulations it underwent, and the abundance measurement of each
-                       element derived from it. Each Sample record is assigned a unique and stable GEO
-                       accession number (GSMxxx). A Sample entity must reference only one Platform and
-                       may be included in multiple Series.")
-                   ),
-                   box(
-                     width = 12,
-                     h2("Series"),
-                     p("A Series record defines a set of related Samples considered to be part of a group,
-                       how the Samples are related, and if and how they are ordered. A Series provides a
-                       focal point and description of the experiment as a whole. Series records may also
-                       contain tables describing extracted data, summary conclusions, or analyses.
-                       Each Series record is assigned a unique and stable GEO accession number (GSExxx).
-                       Series records are available in a couple of formats which are handled by GEOquery
-                       independently. The smaller and new GSEMatrix files are quite fast to parse; a simple
-                       flag is used by GEOquery to choose to use GSEMatrix files (see below).")
-                   ),
-                   box(
-                     width = 12,
-                     h2("Datasets"),
-                     p("GEO DataSets (GDSxxx) are curated sets of GEO Sample data. A GDS record represents 
-                       a collection of biologically and statistically comparable GEO Samples and forms the 
-                       basis of GEO's suite of data display and analysis tools. Samples within a GDS refer 
-                       to the same Platform, that is, they share a common set of probe elements. Value 
-                       measurements for each Sample within a GDS are assumed to be calculated in an 
-                       equivalent manner, that is, considerations such as background processing and 
-                       normalization are consistent across the dataset. Information reflecting experimental 
-                       design is provided through GDS subsets.")
-                   )
-                 )
-        ),
-        tabPanel(
-          "Micro arrays",
-          fluidRow(
-            box(
-              width = 12,
-              h1("To Do"),
-              a("Micro arrays en espanyol",
-                href="https://www.cabimer.es/web3/unidades-apoyo/genomica/microarrays-de-affymetrix/")
-            )
-          )
-        )
-      )
-    ),
+    mainView(),
     
-    ###### PANEL QUERIES  ######
-    conditionalPanel(
-      
-      
-      # show input box when id sidebar is equal with id "queries"
-      condition = "input.sidebar == 'queries'",
-      
-      ####
-      # Create a fuild row where we can add boxes or columns
-      fluidRow(
-        ## BOX QUERY
-        # Create a box that contains text input where user can enter a Geo Id
-        box(
-          # set title of box to blank space, add header and color to black
-          title ="", solidHeader = T, background = "black",
-          # make collapsible and add width of 4
-          collapsible = T, width = 4,
-          # add a text input
-          textInput("queryId", "Input query ID", ""),
-          # add a action button
-          actionButton("search", "Search ID")
-        ),
-        
-        ## BOX QUERY FROM DDBB
-        # Create a box which contains a reactive function which
-        # can be rendered to others inputs or outputs objects
-        box(
-          title ="", solidHeader = T, background = "black",
-          collapsible = T, width = 4,
-          uiOutput("gds_db")
-        ),
-        ## BOX FILE
-        # create a box which contain an input file and button
-        box(
-          title ="", solidHeader = T, background = "black",
-          collapsible = T, width = 4,
-          fileInput("cellFile", "Upload file", accept = ".gz"),
-          actionButton("upload", "Upload file")
-        )
-      ),
-      
-      textOutput("queryError"),
-      
-      ## BOX PHENO CHOICE
-      # create a reactive box
-      fluidRow(
-        uiOutput("selectPhenoData"),
-        uiOutput("ExpDesc")
-      )
-    ),
+    inputView(),
     
-    ######## PANEL PLOTS  ###### 
-    conditionalPanel(
-      
-     
-      # if sidebar id is equal with "plot" show page
-      condition= "input.sidebar == 'plot'",
-      
-      # Create a panel of tab in body to show plots
-      tabsetPanel(type="tabs",
-                  tabPanel("Quality Control",
-                           fluidRow(
-                             column(6,plotOutput("plot.raw1")
-                             ),
-                             column(6,plotOutput("plot.rma1")
-                             )
-                           ),
-                           fluidRow(
-                             br(),
-                             column(width=8, offset=2, align="center",
-                                    selectInput("select.dendro", "Choose method for dendrogram: ",
-                                         choices = c("euclidean", "maximum", "manhattan",
-                                                     "canberra", "binary", "minkowski"))),
-                             column(6, plotOutput("dendro.raw")),
-                             column(6, plotOutput("dendro.rma"))
-                           ),
-                           fluidRow(
-                             
-                             br(),
-                             # reactive function which show MA plot
-                             column(width=8, offset=2, align="center",
-                                    plotOutput("plot.MA")
-                             )
-                           )
-                  ),
-                  # Create tab and add a title
-                  tabPanel("Gene Expression",
-                           # reactive function which show a heat map plot
-                           fluidRow(
-                             column(width = 9,
-                                    d3heatmapOutput("plot.heatMap", height = "80vh")
-                                    ),
-                             column(width=3,
-                                    sliderInput("sli_heatmap", label = "Please select the 
-                                    amount of genes to display in heatmap", min = 15,
-                                                max = 300, value = 30)
-                             )
-                           ),
-                           # reactive function which show a plot of genes
-                           fluidRow(
-                             br(),
-                             column(9, plotlyOutput("plot.gene1",  height = "80vh")),
-                             column(3, searchInput("searchGene", label="Search gene to evaluate",
-                                                   btnReset = icon("remove"), btnSearch = icon("search")),
-                                    radioButtons("radioGene", "Select Raw or Normalized data:",
-                                                 choices=c("Raw", "Normalized")))
-                             
-                           ),
-                           # reactive function which show a volcano plot
-                           fluidRow(
-                             br(),
-                             br(),
-                             plotOutput("plot.volcano", height = 800)
-                           )
-                  )
-      )
-    ),
+    plotView(),
     
-    # Conditional panel which show gds data in a table
-    conditionalPanel(
-      
-      ## DATA PANEL
-      # if sidebar id is equal with "data" show page
-      condition= "input.sidebar == 'data'",
-      
-      # Create a tab panel in body
-      tabsetPanel(type="tabs",
-                  # Create tab and set title
-                  tabPanel(
-                    "RAW gds data",
-                    DT::dataTableOutput("rawGds") # create a output function to print the table
-                  ),
-                  tabPanel(
-                    "RMA gds data",
-                    DT::dataTableOutput("rmaGds") # create a output function to print the table
-                  )
-      )
-    )
+    tableView()
   )
 )
 
@@ -287,6 +55,10 @@ ui <- dashboardPage(
 # server function where we can controlle the differents options
 # inputed by the user
 server <- function(input, output, session) {
+  
+  ##################################### THEME #####################################
+  
+  callModule(module = serverChangeTheme, id = "moduleChangeTheme")
   
   ##################################### DATABASE #####################################
   
