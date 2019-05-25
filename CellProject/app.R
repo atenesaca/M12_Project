@@ -380,8 +380,10 @@ server <- function(input, output, session) {
   output$plot.raw1 <- renderPlot({
     req(genes.raw())
     rawData <- genes.raw()
-    ggplot(rawData, aes(x=sample, y=value, fill=group)) + geom_boxplot() +
-      theme(axis.text.x = element_text(angle = 90))
+    g <- input$pData
+    ggplot(rawData, aes(x=sample, y=value, fill=group)) + geom_boxplot() + 
+      labs(title= "BEFORE normalization", x = "Samples", y="Expressions", fill=g) +
+      theme(plot.title = element_text(face="bold"), axis.text.x = element_text(angle = 90))
   })
   
   #### Plots normalized
@@ -397,8 +399,10 @@ server <- function(input, output, session) {
   output$plot.rma1 <- renderPlot({
     req(genes.rma())
     normData <- genes.rma()
+    g <- input$pData
     ggplot(normData, aes(x=sample, y=value, fill=group)) + geom_boxplot() +
-      theme(axis.text.x = element_text(angle = 90))
+      labs(title= "AFTER normalization", x = "Samples", y="Expressions", fill=g) +
+      theme(plot.title = element_text(face="bold"), axis.text.x = element_text(angle = 90))
   })
   
   ##### Dendrogram ####

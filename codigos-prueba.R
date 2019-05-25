@@ -1,16 +1,19 @@
 library(EnhancedVolcano)
 library(scales)
-geo <- getGEO("gds858", destdir=".")
+library(tidyverse)
+if (!requireNamespace("topGO", quietly = TRUE))
+  BiocManager::install("topGO")
+library(topGO)
+geo <- getGEO("gds858")
 
-  e <- GDS2eSet(geo, do.log2=TRUE)
+matriz <- GDS2eSet(geo, do.log2=TRUE)
 
-class(groups) <- pData(e)[,2]
+groups <- pData(matriz)[,2]
 
-y <- exprs(e)
+y <- exprs(matriz)
 design <- model.matrix(~ groups)
-fit <- lmFit(y, design)
+fit <- lmFit(y, design) 
 ebayes <- eBayes(fit)
-
 t<- topTable(ebayes, coef = 2, n=1000)
 ?topTable
 volcanoplot(ebayes, coef=2, highlight=5)
@@ -22,4 +25,8 @@ EnhancedVolcano(t,
                 x = 'logFC',
                 y = 'P.Value')
 
+geneID <- rownames(t)
+geneList <- factor(as.integer(t))
+names(geneList) <- geneID
 
+top_GO_data <- new("topGOdata", ontology = "BP", allGenes = geneID, nodeSize = 10)

@@ -10,26 +10,27 @@ plotView <- function(){
     tabsetPanel(type="tabs",
                 tabPanel("Quality Control",
                          fluidRow(
-                           column(6,plotOutput("plot.raw1")
-                           ),
-                           column(6,plotOutput("plot.rma1")
-                           )
+                           h3("Statistic Representation of Sample Intensities", align="center"),
+                           column(6,plotOutput("plot.raw1", height = 650)),
+                           column(6,plotOutput("plot.rma1", height = 650))
                          ),
                          fluidRow(
                            br(),
                            column(width=8, offset=2, align="center",
+                                  h3("Samples Aggregations"),
                                   selectInput("select.dendro", "Choose method for dendrogram: ",
                                               choices = c("euclidean", "maximum", "manhattan",
                                                           "canberra", "binary", "minkowski"))),
-                           column(6, plotOutput("dendro.raw")),
-                           column(6, plotOutput("dendro.rma"))
+                           column(6, plotOutput("dendro.raw", height = 650)),
+                           column(6, plotOutput("dendro.rma", height = 650))
                          ),
                          fluidRow(
                            
                            br(),
                            # reactive function which show MA plot
                            column(width=8, offset=2, align="center",
-                                  plotOutput("plot.MA")
+                                  h3("Differences Between Sample Measurements"),
+                                  plotOutput("plot.MA", height = 650)
                            )
                          )
                 ),
@@ -37,6 +38,7 @@ plotView <- function(){
                 tabPanel("Gene Expression",
                          # reactive function which show a heat map plot
                          fluidRow(
+                           h3("HeatMap", align="center"),
                            column(width = 9,
                                   d3heatmapOutput("plot.heatMap", height = "80vh")
                            ),
@@ -49,6 +51,7 @@ plotView <- function(){
                          # reactive function which show a plot of genes
                          fluidRow(
                            br(),
+                           h3("Gene Expression // Search by Gene Symbol", align="center"),
                            column(9, plotlyOutput("plot.gene1",  height = "80vh")),
                            column(3, searchInput("searchGene", label="Search gene to evaluate",
                                                  btnReset = icon("remove"), btnSearch = icon("search")),
@@ -61,7 +64,7 @@ plotView <- function(){
                            br(),
                            br(),
                            plotOutput("plot.volcano", height = 800)
-                         )
+                           )
                          )
                 )
   )
