@@ -106,6 +106,25 @@ server <- function(input, output, session) {
       )
     )
   })
+  
+  ##### toptable settings #########
+  output$settings_toptable <- renderUI({
+    req(eSetRma())
+    tagList(
+      box(title="Phenotypical GE Configuration", status = "primary", solidHeader = TRUE,
+          collapsible = TRUE, width = 12,
+          sliderInput("max_toptable", label = "Please select the max amount of genes to
+                                       be considered into the TopTable design:", min = 50,
+                      max = length(rownames(eSetRma())), value = 1000),
+          selectInput("top_adjust", "Choose Adjust Method: ",
+                      choices=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+                                "fdr", "none")),
+          selectInput("top_coef", "Choose Coeficient from Contrast Design: ",
+                      choices=colnames(ebayes()$coefficients))
+          )
+    )
+
+  })
   ## ExpDesc
   # render an ui which show the description of the gds object
   output$ExpDesc <- renderUI({
@@ -327,6 +346,39 @@ server <- function(input, output, session) {
     g
   })
   
+  ##### function contrast #####
+  contrast <- function(x){
+    x <- make.names(x)
+    num <- 1
+    gro <- as.character(x)
+    vec <- unique(gro)
+    cont <- length(vec)
+    h <- ""
+    v <- vector()
+    m <- vector()
+    for (i in 1:cont){
+      v[i] <- vec[i]
+    }
+    for (i in 1:cont){
+      for (j in cont:i){
+        if(v[i] != v[j]){
+          h <- paste(v[i],v[j], sep = "-")
+          m[num] <- h
+          num <- num+1
+        }
+      }
+    }
+    m
+  }
+  
+  ## Contrast Groups ###
+  contrast.gru <- reactive({
+    g <- facLevel()
+    g <- contrast(g)
+    g
+  })
+  
+  
   ## ebayes
   # data for the heatmap (normalized)
   # need the factor levels function and normalized data 
@@ -339,18 +391,26 @@ server <- function(input, output, session) {
   ebayes <- reactive({
     req(facLevel(), eSetRma())
     y <- exprs(eSetRma())
-    g <- facLevel()
-    design <- model.matrix(~ g)
-    fit <- lmFit(y, design)
-    return(eBayes(fit))
-  })
+    groups <- facLevel()
+    groups<- make.names(groups)
+    vect <- unique(groups)
+    fac <- factor(groups,levels=vect)
+    design <- model.matrix(~ 0 + fac)
+    colnames(design) <- vect
+    gru <- contrast.gru()
+    df <- lmFit(y,design)
+    contrast <- makeContrasts(contrasts = gru,levels=design)
+    datafitcon <-  contrasts.fit(df,contrast)
+    ebayes <-  eBayes(datafitcon)
+    ebayes
+    })
   
-  ## ranked
-  # reactive function which return the top tanked 150 genes
+  ##### ranked #####
+  # reactive function which return the top tanked genes
   ranked <- reactive({
-    req(ebayes())
+    req(ebayes(), input$top_coef, input$top_adjust, input$max_toptable)
     e <- ebayes()
-    t <- topTable(e, coef = 2, adjust="fdr", n=1000)
+    t <- topTable(e, coef = input$top_coef, adjust=input$top_adjust, n=input$max_toptable)
     t
   })
   
@@ -473,6 +533,20 @@ server <- function(input, output, session) {
               k_row=3, k_col=3)
   })
   
+  #### Volcano plot ####
+  # reactive function which render a volcano plot
+  output$plot.volcano <- renderPlot({
+    req(ranked())
+    t<-ranked()
+    EnhancedVolcano(t,
+                    title = paste0("Fold changes for this contrast group: ", input$top_coef),
+                    lab = rownames(t),
+                    x = 'logFC',
+                    y = 'P.Value',
+                    xlab = "Fold Change",
+                    ylab = "Significance")
+  })
+  
   ### Plot individual gene expression ####
   output$plot.gene1 <- renderPlotly({
     req(facLevel())
@@ -495,17 +569,6 @@ server <- function(input, output, session) {
     }
     ggplot(dt, aes(x=group, y=value)) + geom_jitter(aes(colour=group)) +
       theme(legend.position = "none")
-  })
-  
-  #### Volcano plot ####
-  # reactive function which render a volcano plot
-  output$plot.volcano <- renderPlot({
-    req(ranked())
-    t<-ranked()
-    EnhancedVolcano(t,
-                    lab = rownames(t),
-                    x = 'logFC',
-                    y = 'P.Value')
   })
   
 }

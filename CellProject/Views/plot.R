@@ -38,16 +38,23 @@ plotView <- function(){
                 tabPanel("Gene Expression",
                          # reactive function which show a heat map plot
                          fluidRow(
+                           uiOutput("settings_toptable")
+                         ),
+                         fluidRow(
                            h3("HeatMap", align="center"),
                            column(width = 9,
-                                  d3heatmapOutput("plot.heatMap", height = "80vh")
-                           ),
+                                  d3heatmapOutput("plot.heatMap", height = "80vh")),
                            column(width=3,
                                   sliderInput("sli_heatmap", label = "Please select the 
                                               amount of genes to display in heatmap", min = 15,
-                                              max = 300, value = 30)
-                           )
+                                              max = 300, value = 30))
                            ),
+                         # reactive function which show a volcano plot
+                         fluidRow(
+                           br(),
+                           br(),
+                           plotOutput("plot.volcano", height = 800)
+                         ),
                          # reactive function which show a plot of genes
                          fluidRow(
                            br(),
@@ -58,14 +65,8 @@ plotView <- function(){
                                   radioButtons("radioGene", "Select Raw or Normalized data:",
                                                choices=c("Raw", "Normalized")))
                            
-                         ),
-                         # reactive function which show a volcano plot
-                         fluidRow(
-                           br(),
-                           br(),
-                           plotOutput("plot.volcano", height = 800)
-                           )
                          )
+                      )
                 )
   )
 }
