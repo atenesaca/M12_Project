@@ -10,63 +10,74 @@ plotView <- function(){
     tabsetPanel(type="tabs",
                 tabPanel("Quality Control",
                          fluidRow(
-                           h3("Statistic Representation of Sample Intensities", align="center"),
-                           column(6,plotOutput("plot.raw1", height = 650)),
-                           column(6,plotOutput("plot.rma1", height = 650))
-                         ),
+                           box(title = "Statistic Representation of Sample Intensities",
+                               status = "primary", solidHeader = TRUE, collapsible = TRUE, width = 12,
+                               column(6,plotOutput("plot.raw1", height = 650)),
+                               column(6,plotOutput("plot.rma1", height = 650))
+                               )
+                           ),
                          fluidRow(
                            br(),
-                           column(width=8, offset=2, align="center",
-                                  h3("Samples Aggregations"),
-                                  selectInput("select.dendro", "Choose method for dendrogram: ",
-                                              choices = c("euclidean", "maximum", "manhattan",
-                                                          "canberra", "binary", "minkowski"))),
-                           column(6, plotOutput("dendro.raw", height = 650)),
-                           column(6, plotOutput("dendro.rma", height = 650))
+                           box(title = "Samples Aggregations", status = "primary",
+                               solidHeader = TRUE, collapsible = TRUE, width = 12,
+                               column(width=8, offset=2, align="center",
+                                      selectInput("select.dendro", "Choose method for dendrogram: ",
+                                                  choices = c("euclidean", "maximum", "manhattan",
+                                                              "canberra", "binary", "minkowski"))),
+                               column(6, plotOutput("dendro.raw", height = 650)),
+                               column(6, plotOutput("dendro.rma", height = 650))
+                           )
                          ),
                          fluidRow(
                            
                            br(),
-                           # reactive function which show MA plot
+                           box(title = "Samples Aggregations", status = "primary",
+                               solidHeader = TRUE, collapsible = TRUE, width = 12,
                            column(width=8, offset=2, align="center",
-                                  h3("Differences Between Sample Measurements"),
-                                  plotOutput("plot.MA", height = 650)
+                                  plotOutput("plot.MA", height = 650))
                            )
                          )
                 ),
                 # Create tab and add a title
                 tabPanel("Gene Expression",
-                         # reactive function which show a heat map plot
                          fluidRow(
                            uiOutput("settings_toptable")
                          ),
                          fluidRow(
-                           h3("HeatMap", align="center"),
-                           column(width = 9,
-                                  d3heatmapOutput("plot.heatMap", height = "80vh")),
-                           column(width=3,
-                                  sliderInput("sli_heatmap", label = "Please select the 
+                           box(title = "HEATMAP", status = "primary", solidHeader = TRUE, 
+                               collapsible = TRUE, width = 12,
+                               column(width = 9,
+                                      d3heatmapOutput("plot.heatMap", height = "80vh")),
+                               column(width = 3,
+                                      br(),
+                                      sliderInput("sli_heatmap", label = "Please select the 
                                               amount of genes to display in heatmap", min = 15,
-                                              max = 300, value = 30))
+                                                  max = 300, value = 30))
+                               )
                            ),
                          # reactive function which show a volcano plot
                          fluidRow(
+                           box(title = "VOLCANO", status = "primary", solidHeader = TRUE,
+                               collapsible = TRUE, width = 12,
                            br(),
                            br(),
                            plotOutput("plot.volcano", height = 800)
+                           )
                          ),
                          # reactive function which show a plot of genes
                          fluidRow(
                            br(),
-                           h3("Gene Expression // Search by Gene Symbol", align="center"),
-                           column(9, plotlyOutput("plot.gene1",  height = "80vh")),
-                           column(3, searchInput("searchGene", label="Search gene to evaluate",
-                                                 btnReset = icon("remove"), btnSearch = icon("search")),
-                                  radioButtons("radioGene", "Select Raw or Normalized data:",
+                           box(title = "Gene Expression // Search by Gene Symbol", status = "primary", solidHeader = TRUE,
+                               collapsible = TRUE, width = 12,
+                               column(9, plotlyOutput("plot.gene1",  height = "80vh")),
+                               column(3, 
+                                      searchInput("searchGene", label="Search gene to evaluate",
+                                                     btnReset = icon("remove"), btnSearch = icon("search")),
+                                      radioButtons("radioGene", "Select Raw or Normalized data:",
                                                choices=c("Raw", "Normalized")))
-                           
+                               )
+                           )
                          )
-                      )
                 )
-  )
+    )
 }

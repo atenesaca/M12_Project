@@ -540,11 +540,14 @@ server <- function(input, output, session) {
     t<-ranked()
     EnhancedVolcano(t,
                     title = paste0("Fold changes for this contrast group: ", input$top_coef),
+                    subtitle = "",
                     lab = rownames(t),
                     x = 'logFC',
                     y = 'P.Value',
                     xlab = "Fold Change",
-                    ylab = "Significance")
+                    ylab = "Significance",
+                    legendPosition = 'right',
+                    transcriptLabSize = 4)
   })
   
   ### Plot individual gene expression ####
