@@ -24,14 +24,15 @@ inputView <- function(){
       box(
         width = 4,
         uiOutput("gds_db")
-      ),
+      )
+      #,
       ## BOX FILE
       # create a box which contain an input file and button
-      box(
-        width = 4,
-        fileInput("cellFile", "Select GDS file", accept = ".gz"),
-        actionButton("upload", "Upload file")
-      )
+      # box(
+      #   width = 4,
+      #   fileInput("cellFile", "Select GDS file", accept = ".gz"),
+      #   actionButton("upload", "Upload file")
+      # )
     ),
     
     # render function where print error of queries
@@ -42,7 +43,7 @@ inputView <- function(){
     fluidRow(
       
       # shows a loader while app download GDS experiment
-      withLoader(uiOutput("ExpDesc"), loader = "loader6"),
+      withLoader(uiOutput("ExpDesc"), loader = "dnaspin"),
       
       # output ui to select phenodata columns
       uiOutput("selectPhenoData")

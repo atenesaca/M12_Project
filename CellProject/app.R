@@ -244,15 +244,15 @@ server <- function(input, output, session) {
   # Unzip .gz file in temp directory and rename it to the name of the uploaded file without the .gz extention
   # unzip .gz file in dest_dir and overwrite it if exist
   # Convert .soft file to GDS object
-  gdsObjFile <- eventReactive(input$upload, {
-    emptyFile() # show message error
-    dest_dir = paste(tempdir(), "/", tools::file_path_sans_ext(input$cellFile$name),
-                     sep = "")
-    gunzip(input$cellFile$datapath, dest_dir, overwrite=TRUE)
-    data <- try(getGEO(filename = dest_dir))
-    idError() # show error if id in invalid
-    return(data)
-  })
+  # gdsObjFile <- eventReactive(input$upload, {
+  #   emptyFile() # show message error
+  #   dest_dir = paste(tempdir(), "/", tools::file_path_sans_ext(input$cellFile$name),
+  #                    sep = "")
+  #   gunzip(input$cellFile$datapath, dest_dir, overwrite=TRUE)
+  #   data <- try(getGEO(filename = dest_dir))
+  #   idError() # show error if id in invalid
+  #   return(data)
+  # })
   
   ## gdsObj: r function
   # Function which manages to return the same value but differents ways
@@ -262,9 +262,9 @@ server <- function(input, output, session) {
     if(class(gdsObjInput()) == "GDS"){
       return(gdsObjInput())
     }
-    if(class(gdsObjFile()) == "GDS"){
-      return(gdsObjFile())
-    }
+    # if(class(gdsObjFile()) == "GDS"){
+    #   return(gdsObjFile())
+    # }
   }
   
   ## eSetRaw
@@ -443,6 +443,13 @@ server <- function(input, output, session) {
     req(genes.raw())
     rawData <- genes.raw()
     g <- input$pData
+    withProgress(message = 'Calculation in progress',
+                 detail = 'This may take a while...', value = 0, {
+                   for (i in 1:15) {
+                     incProgress(1/15)
+                     Sys.sleep(0.1)
+                   }
+                 })
     ggplot(rawData, aes(x=sample, y=value, fill=group)) + geom_boxplot() + 
       labs(title= "BEFORE normalization", x = "Samples", y="Expressions", fill=g) +
       theme(plot.title = element_text(face="bold"), axis.text.x = element_text(angle = 90))
