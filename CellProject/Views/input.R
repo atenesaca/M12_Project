@@ -11,7 +11,7 @@ inputView <- function(){
       ## BOX QUERY
       # Create a box that contains text input where user can enter a Geo Id
       box(
-        width = 4,
+        width = 6,
         # add a text input
         textInput("queryId", "Input GEO ID", ""),
         # add a action button
@@ -22,7 +22,7 @@ inputView <- function(){
       # Create a box which contains a reactive function which
       # can be rendered to others inputs or outputs objects
       box(
-        width = 4,
+        width = 6,
         uiOutput("gds_db")
       )
       #,
@@ -43,7 +43,7 @@ inputView <- function(){
     fluidRow(
       
       # shows a loader while app download GDS experiment
-      withLoader(uiOutput("ExpDesc"), loader = "dnaspin"),
+      withLoader(uiOutput("ExpDesc"), loader = "dnaspin", proxy.height = "200px"),
       
       # output ui to select phenodata columns
       uiOutput("selectPhenoData")

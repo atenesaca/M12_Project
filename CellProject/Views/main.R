@@ -12,7 +12,7 @@ mainView <- function(){
       type = "tabs",
       # Create tab and add a title
       tabPanel(
-        "Main",
+        "Introduction",
         fluidRow(
           box(
             width = 12,
@@ -40,13 +40,15 @@ mainView <- function(){
               a("GDS2eSet", "https://www.rdocumentation.org/packages/GEOquery/versions/2.38.4/topics/Converting"),
               "method"),
             p("The plot section includes the following plots:"),
-            tags$ol(
-              tags$li("BoxPlot"),
-              tags$li("Dendrogram Plot"),
-              tags$li("smooth Scatter"),
-              tags$li("HeatMap"),
-              tags$li("Volcano"),
-              tags$li("Jitter")
+            p(
+              tags$ol(
+                tags$li("BoxPlot"),
+                tags$li("Dendrogram Plot"),
+                tags$li("smooth Scatter"),
+                tags$li("HeatMap"),
+                tags$li("Volcano"),
+                tags$li("Jitter")
+              )
             ),
             
             h1("Data section"),

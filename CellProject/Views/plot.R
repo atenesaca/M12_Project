@@ -1,13 +1,16 @@
 plotView <- function(){
   
-  ######## PANEL PLOTS  ###### 
+  ######## PANEL PLOTS  ######## 
   conditionalPanel(
     
     # if sidebar id is equal with "plot" show page
     condition= "input.sidebar == 'plot'",
     
+    uiOutput("selectPhenoDataAgain"),
+    
     # Create a panel of tab in body to show plots
     tabsetPanel(type="tabs",
+                
                 tabPanel("Quality Control",
                          fluidRow(
                            box(title = "Statistic Representation of Sample Intensities",

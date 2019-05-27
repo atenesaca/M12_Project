@@ -112,6 +112,16 @@ server <- function(input, output, session) {
     )
   })
   
+  output$selectPhenoDataAgain <- renderUI({
+    tagList(
+      box(title = "Phenotype columns", status = "primary", solidHeader = TRUE,
+          collapsible = TRUE, width = 12,
+          selectInput("pData", "Choose first pheno: ",
+                      choices = colnames(pData(eSetRma()))[2:3])
+      )
+    )
+  })
+  
   ##### toptable settings #########
   output$settings_toptable <- renderUI({
     req(eSetRma())
