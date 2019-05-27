@@ -1,7 +1,7 @@
 plotView <- function(){
+  
   ######## PANEL PLOTS  ###### 
   conditionalPanel(
-    
     
     # if sidebar id is equal with "plot" show page
     condition= "input.sidebar == 'plot'",
@@ -17,13 +17,14 @@ plotView <- function(){
                                )
                            ),
                          fluidRow(
-                           br(),
+                           br(), # HTML new line
                            box(title = "Samples Aggregations", status = "primary",
                                solidHeader = TRUE, collapsible = TRUE, width = 12,
                                column(width=8, offset=2, align="center",
                                       selectInput("select.dendro", "Choose method for dendrogram: ",
-                                                  choices = c("euclidean", "maximum", "manhattan",
-                                                              "canberra", "binary", "minkowski"))),
+                                                  choices = c("euclidean", "maximum", "manhattan", 
+                                                              "canberra", "binary", "minkowski"))
+                               ),
                                column(6, plotOutput("dendro.raw", height = 650)),
                                column(6, plotOutput("dendro.rma", height = 650))
                            )

@@ -7,6 +7,8 @@ install.packages("shinyWidgets")
 install.packages("ggdendro")
 install.packages("BiocManager")
 install.packages("RMySQL")
+install.packages("shinyjs")
+
 BiocManager::install("GEOquery")
 BiocManager::install("AnnotationDbi")
 if (!requireNamespace("EnhancedVolcano", quietly = TRUE))

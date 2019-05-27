@@ -11,6 +11,50 @@ mainView <- function(){
     tabsetPanel(
       type = "tabs",
       # Create tab and add a title
+      tabPanel(
+        "Main",
+        fluidRow(
+          box(
+            width = 12,
+            h1("Introduction"),
+            p("GDS analysis is an online app to perform analysis to a differential expression genes
+              microarrays experiment, currently the app only analise data from NCBI GEO Homo sapiens, 
+              int the future we will add more types of arrays and organism."),
+            p("This app uses the Empirical Bayes Method from Limma (Linear Models for Microarray Data),
+              R package to calculate the expression of the genes"),
+            p("You can download all de data from",
+              a("NCBI GEO", href="https://www.ncbi.nlm.nih.gov/geo/"),
+              "for further analysis"),
+            
+            h1("How to use it?"),
+            p("This section provides a short guide to run the GDS analysis"),
+            
+            h2("Data input selection"),
+            p("In the Data input section, the user have to provide the following data to run the analysis"),
+            p("In the GEO ID section, the user have to provide an GEO ID from NCBI", tags$b("e.g. GDS858")),
+            p("In the GDS File section, the user have to provide CELFILEs in .soft file"),
+            
+            h1("Plot"),
+            p("The plot section runs a quality control on the raw data, and the normalized data:"),
+            p("Normalization of the samples is done with",
+              a("GDS2eSet", "https://www.rdocumentation.org/packages/GEOquery/versions/2.38.4/topics/Converting"),
+              "method"),
+            p("The plot section includes the following plots:"),
+            tags$ol(
+              tags$li("BoxPlot"),
+              tags$li("Dendrogram Plot"),
+              tags$li("smooth Scatter"),
+              tags$li("HeatMap"),
+              tags$li("Volcano"),
+              tags$li("Jitter")
+            ),
+            
+            h1("Data section"),
+            p("This section shows the result of GDS analysis in data table format, where user can view values
+              of the raw and normalized data")
+          )
+        )
+      ),
       tabPanel("NCBI Geo",
                fluidRow(
                  box(width = 12,
@@ -38,7 +82,7 @@ mainView <- function(){
                      (e.g., SAGE tags, peptides). Each Platform record is assigned a unique and stable 
                      GEO accession number (GPLxxx). A Platform may reference many Samples that have been 
                      submitted by multiple submitters.")
-                   ),
+                 ),
                  box(
                    width = 12,
                    h2("Samples"),
@@ -47,7 +91,7 @@ mainView <- function(){
                      element derived from it. Each Sample record is assigned a unique and stable GEO
                      accession number (GSMxxx). A Sample entity must reference only one Platform and
                      may be included in multiple Series.")
-                   ),
+                 ),
                  box(
                    width = 12,
                    h2("Series"),
@@ -59,7 +103,7 @@ mainView <- function(){
                      Series records are available in a couple of formats which are handled by GEOquery
                      independently. The smaller and new GSEMatrix files are quite fast to parse; a simple
                      flag is used by GEOquery to choose to use GSEMatrix files (see below).")
-                   ),
+                 ),
                  box(
                    width = 12,
                    h2("Datasets"),
@@ -71,20 +115,20 @@ mainView <- function(){
                        equivalent manner, that is, considerations such as background processing and 
                        normalization are consistent across the dataset. Information reflecting experimental 
                        design is provided through GDS subsets.")
-                   )
                  )
-        ),
-        tabPanel(
-          "Micro arrays",
-          fluidRow(
-            box(
-              width = 12,
-              h1("To Do"),
-              a("Micro arrays en espanyol",
-                href="https://www.cabimer.es/web3/unidades-apoyo/genomica/microarrays-de-affymetrix/")
-            )
+               )
+      ),
+      tabPanel(
+        "Micro arrays",
+        fluidRow(
+          box(
+            width = 12,
+            h1("To Do"),
+            a("Micro arrays en espanyol",
+              href="https://www.cabimer.es/web3/unidades-apoyo/genomica/microarrays-de-affymetrix/")
           )
         )
       )
     )
+  )
 }

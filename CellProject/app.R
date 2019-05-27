@@ -24,7 +24,7 @@ ui <- dashboardPage(
   
   ## HEADER
   dashboardHeader(
-    title = "Gene Chips Analysis" # put a title in header
+    title = "GDS Analysis" # put a title in header
   ),
   
   ## SIDEBAR
@@ -34,6 +34,7 @@ ui <- dashboardPage(
     ### Custom theme
     uiChangeThemeOutput(),
     
+    # call to function which show sidebar
     sidebarView()
   ),
   
@@ -41,19 +42,23 @@ ui <- dashboardPage(
   # create elements in body app
   dashboardBody(
     
+    # call to function which show the main view of the page
     mainView(),
     
+    # call to function which show inputs to search GDS experiments
     inputView(),
     
+    # call to function which show plots of the data
     plotView(),
     
+    # call to function which show data in a table
     tableView()
   )
 )
 
 ## SERVER
-# server function where we can controlle the differents options
-# inputed by the user
+# Function where app controls the differents options
+# entered by the user
 server <- function(input, output, session) {
   
   ##################################### THEME #####################################
@@ -63,7 +68,7 @@ server <- function(input, output, session) {
   ##################################### DATABASE #####################################
   
   ## getConnection
-  # try connection to database cellFiles through user root
+  # try connection to a database with user, password and database
   getConnection = tryCatch({
     dbConnect(
       drv = RMySQL::MySQL(),
@@ -85,7 +90,7 @@ server <- function(input, output, session) {
     updateTabItems(session, "sidebar", newtab)
   })
 
-  
+  ## Observe event
   # Switch to data page when click in Go to data button
   observeEvent(input$goToData, {
     newtab <- switch(input$sidebar, "queries" = "data", "data" = "queries")
@@ -125,6 +130,7 @@ server <- function(input, output, session) {
     )
 
   })
+  
   ## ExpDesc
   # render an ui which show the description of the gds object
   output$ExpDesc <- renderUI({
@@ -151,14 +157,13 @@ server <- function(input, output, session) {
                            WHERE source = 'Geo Datasets'")
       tagList(
         # create a select with the list of files table from database
-        selectInput("selectIdDb","Select GEO Id",filesDT$dbid),
-        actionButton("search_db", "Search ID")
+        selectInput("selectIdDb","Example GEO Id",filesDT$dbid)
       )
     }
     else { # if connection is invalid
       # create a validate panel
       validate(
-        # where only show error if getConnection is different of class MySQLConnection
+        # where getConnections need to be MySQLConnection, if isn't show error
         need(class(getConnection) == "MySQLConnection",
              getConnection)
       )
@@ -234,18 +239,10 @@ server <- function(input, output, session) {
     return(data)
   })
   
-  ## gdsObj: Reactive event
-  # Download GDS obj through the id of the data base
-  gdsObjDB <- eventReactive(input$search_db, {
-    data <- getGEO(input$selectIdDb) # saves downloaded gds object
-    return(data)
-  })
-  
   ## gdsObjFile: Reactive event
   # create gds obj with the gds file uploaded by the user
-  # Unzip .gz file in temp directory and rename it to the name of the uploaded file
-  # without the .gz extention
-  # unzip .gz file in dest_dir and overwrite it
+  # Unzip .gz file in temp directory and rename it to the name of the uploaded file without the .gz extention
+  # unzip .gz file in dest_dir and overwrite it if exist
   # Convert .soft file to GDS object
   gdsObjFile <- eventReactive(input$upload, {
     emptyFile() # show message error
@@ -264,9 +261,6 @@ server <- function(input, output, session) {
     # return gds obj only is their class is equal to GDS class
     if(class(gdsObjInput()) == "GDS"){
       return(gdsObjInput())
-    }
-    if(class(gdsObjDB()) == "GDS"){
-      return(gdsObjDB())
     }
     if(class(gdsObjFile()) == "GDS"){
       return(gdsObjFile())
@@ -290,7 +284,7 @@ server <- function(input, output, session) {
   })
   
   ## facLevel
-  # Extract factor levels of the pheno data from the second column of expSet
+  # Extract factor levels of expSet
   # need the user input a select value
   # create the pheno data of normalized values an return the values
   # of the column selected by user
@@ -311,12 +305,14 @@ server <- function(input, output, session) {
   # to each column if the value of sample matchs with value of molten sample
   genes.raw <- reactive({
     req(eSetRaw(), facLevel())
+    
     matriz <- eSetRaw()
     facLevel<- facLevel()
     sample <- sampleNames(matriz)
     y <- exprs(matriz)
     gen <- fData(matriz)[,3]
     probenames<-rownames(matriz)
+    
     g<- melt(y, varnames = c( "probe", "sample"))
     g$group <- facLevel[match(g$sample, sample)]
     g$gen <- gen[match(g$probe, probenames)]
@@ -334,12 +330,14 @@ server <- function(input, output, session) {
   # to each column if the value of sample matchs with value of molten sample
   genes.rma <- reactive({
     req(eSetRma(), facLevel())
+    
     matriz <- eSetRma()
     facLevel<- facLevel()
     sample <- sampleNames(matriz)
     y <- exprs(matriz)
     gen <- fData(matriz)[,3]
     probenames<-rownames(matriz)
+    
     g<- melt(y, varnames = c( "probe", "sample"))
     g$group <- facLevel[match(g$sample, sample)]
     g$gen <- gen[match(g$probe, probenames)]
@@ -356,9 +354,11 @@ server <- function(input, output, session) {
     h <- ""
     v <- vector()
     m <- vector()
+    
     for (i in 1:cont){
       v[i] <- vec[i]
     }
+    
     for (i in 1:cont){
       for (j in cont:i){
         if(v[i] != v[j]){
@@ -390,6 +390,7 @@ server <- function(input, output, session) {
   # to the factors levels of design
   ebayes <- reactive({
     req(facLevel(), eSetRma())
+    
     y <- exprs(eSetRma())
     groups <- facLevel()
     groups<- make.names(groups)
@@ -399,9 +400,10 @@ server <- function(input, output, session) {
     colnames(design) <- vect
     gru <- contrast.gru()
     df <- lmFit(y,design)
+    
     contrast <- makeContrasts(contrasts = gru,levels=design)
     datafitcon <-  contrasts.fit(df,contrast)
-    ebayes <-  eBayes(datafitcon)
+    ebayes <- eBayes(datafitcon)
     ebayes
     })
   
@@ -465,7 +467,7 @@ server <- function(input, output, session) {
       theme(plot.title = element_text(face="bold"), axis.text.x = element_text(angle = 90))
   })
   
-  ##### Dendrogram ####
+  ##### Dendrogram raw #####
   
   output$dendro.raw <- renderPlot({
     req(eSetRaw())
@@ -476,6 +478,8 @@ server <- function(input, output, session) {
       labs(title = "BEFORE Normalization") +
       theme(plot.title = element_text(face="bold"), axis.title= element_blank()) 
   })
+  
+  ##### Dendrogram rma #####
   
   output$dendro.rma <- renderPlot({
     req(eSetRma())
@@ -493,13 +497,13 @@ server <- function(input, output, session) {
   # require this function
   # calculate mean of row where column
   # and substract the same column where 
-  #### TO DO ####
   # calculate mean of the row values
   # create a smoothed color density representation of a scatterplot
   # @Main = main title of the plot
   # @xlab = label name of the axis
   # @ylab = label name of the axis
   # @abline h  create horitzontal line at values 1 and -1
+  
   output$plot.MA <- renderPlot({
     req(eSetRma())
     g <- facLevel() # factors levels
@@ -534,7 +538,7 @@ server <- function(input, output, session) {
   })
   
   #### Volcano plot ####
-  # reactive function which render a volcano plot
+  # reactive function whihch create a volcano plot
   output$plot.volcano <- renderPlot({
     req(ranked())
     t<-ranked()
@@ -578,36 +582,3 @@ server <- function(input, output, session) {
 
 # launch shiny app
 shinyApp(ui, server)
-
-# ##################################### LOG IN #####################################
-# 
-# output$userPanel <- renderUI({
-#   tagList(
-#     actionLink("login", "Log in", icon("sign-in-alt"))
-#   )
-# })
-# 
-# observeEvent(input$login, {
-#   showModal(modalDialog(
-#     title = "Log in", footer = modalButton("Close"),
-#     textInput("username","", "", "100%", placeholder = "User name"),
-#     passwordInput("password","","","100%", placeholder = "Password"),
-#     actionButton("logUser","Log in")
-#   ))
-# })
-# 
-# observeEvent(input$logUser,{
-#   query = sprintf("SELECT * FROM users where name = ('%s') and password = ('%s')",
-#                   input$username, input$password)
-#   user = dbGetQuery(conn, query)
-#   
-#   output$userPanel <- renderUI({
-#     removeModal()
-#     tagList(
-#       sidebarUserPanel(
-#         name = user$name,
-#         subtitle = a(href = "#", icon("circle", class = "text-success"), "Online")
-#       )
-#     )
-#   })
-# })

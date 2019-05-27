@@ -2,7 +2,6 @@ inputView <- function(){
   ###### PANEL QUERIES  ######
   conditionalPanel(
     
-    
     # show input box when id sidebar is equal with id "queries"
     condition = "input.sidebar == 'queries'",
     
@@ -14,12 +13,12 @@ inputView <- function(){
       box(
         width = 4,
         # add a text input
-        textInput("queryId", "Input query ID", ""),
+        textInput("queryId", "Input GEO ID", ""),
         # add a action button
         actionButton("search", "Search ID")
       ),
       
-      ## BOX QUERY FROM DDBB
+      ## BOX GEO FROM DDBB
       # Create a box which contains a reactive function which
       # can be rendered to others inputs or outputs objects
       box(
@@ -30,17 +29,22 @@ inputView <- function(){
       # create a box which contain an input file and button
       box(
         width = 4,
-        fileInput("cellFile", "Upload file", accept = ".gz"),
+        fileInput("cellFile", "Select GDS file", accept = ".gz"),
         actionButton("upload", "Upload file")
       )
     ),
     
+    # render function where print error of queries
     textOutput("queryError"),
     
     ## BOX PHENO CHOICE
     # create a reactive box
     fluidRow(
+      
+      # shows a loader while app download GDS experiment
       withLoader(uiOutput("ExpDesc"), loader = "loader6"),
+      
+      # output ui to select phenodata columns
       uiOutput("selectPhenoData")
     )
   )

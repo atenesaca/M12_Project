@@ -1,4 +1,5 @@
 tableView <- function(){
+  
   ######## PANEL PLOTS  ########
   
   # Conditional panel which show gds data in a table
