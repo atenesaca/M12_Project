@@ -6,7 +6,7 @@ plotView <- function(){
     # if sidebar id is equal with "plot" show page
     condition= "input.sidebar == 'plot'",
     
-    uiOutput("selectPhenoDataAgain"),
+    withLoader(uiOutput("selectPhenoData"), loader="dnaspin"),
     
     # Create a panel of tab in body to show plots
     tabsetPanel(type="tabs",
