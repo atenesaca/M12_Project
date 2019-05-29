@@ -84,7 +84,7 @@ server <- function(input, output, session) {
     )
   })
   
-  ###### select ma plot ########
+  ###### Select ma plot ########
   # creates selectInput, fills its choices with sampleNames from ExpressionSet file
   output$ma_selector <- renderUI({
     req(eSetRma())
@@ -92,7 +92,7 @@ server <- function(input, output, session) {
     selectInput("ma_selector1", "Select your sample to compare", choices=samplenames)
   })
   
-  ######### toptable settings #########
+  ######### Toptable settings #########
   # this will print three inputs required to entangle with Heatmap and Volcanoplot
   # 1. first, it creates a slider for amount of genes
   # 2. second, creates a select with Adjust method options
@@ -121,7 +121,7 @@ server <- function(input, output, session) {
   
   ######### Error Functions ###########
   
-  ## clearError
+  ## ClearError
   # set output error to blank
   clearError <-  function(){
     output$queryError <- renderText({
@@ -129,7 +129,7 @@ server <- function(input, output, session) {
     })
   }
   
-  ## idError
+  ## IdError
   # show message error from incorrect geo id
   idError <- function(){
     # if data class is different of GDS show error
@@ -170,36 +170,35 @@ server <- function(input, output, session) {
   ##################################### DATA #####################################
   
   ## gdsObjInput: Reactive event
-  # Download GDS object from NCBI Geo and saves into a Geo Object
+  # Download GDS package into a Geo Object from NCBI Geo using the input id 
+  
   gdsObj <- eventReactive(input$search, {
-    idEmpty() # show error if id is empty
+    idEmpty() # shows error if id is empty
     data <- try(getGEO(input$queryId)) # saves downloaded gds object
-    idError() # show error if id in invalid
+    idError() # shows error if id in invalid
     return(data)
   })
 
   
   ## eSetRaw
-  # transform a GDS obj to Expression set obj
-  # need the function which return the gds obj
+  # transforms a GDS obj to Expression Set Feature
+  
   eSetRaw <- reactive({
     req(gdsObj)
     GDS2eSet(gdsObj(), do.log2=FALSE)
   })
   
   ## eSetRma
-  # transform a GDS obj to Expression set obj and normalized it
-  # need the function which return the gds obj
+  # transform a GDS obj to Expression Set Feature with normalized data
   eSetRma <- reactive({
     req(gdsObj)
     GDS2eSet(gdsObj(), do.log2=TRUE)
   })
   
   ## facLevel
-  # Extract factor levels of expSet
-  # need the user input a select value
-  # create the pheno data of normalized values an return the values
-  # of the column selected by user
+  # Extracts factor levels of Ex Set Feature, using input from user,
+  # and returns the values of the selected column
+  
   facLevel <- reactive({
     req(input$pData)
     pData(eSetRma())[,input$pData]
@@ -207,17 +206,12 @@ server <- function(input, output, session) {
   
   
   ## genes.raw
-  # create a data frame with the raw data
-  # need functions where create war dara and factor levels
-  # saves the sample name of the raw data
-  # Extract expression genes from raw data
-  # call function which create factor levels of pheno data
-  # convert objects to molten data frame
-  # create a new column in molten dataframe where add factor level
-  # to each column if the value of sample matchs with value of molten sample
+  # extracts raw gene expression matrix, list fo sample names, recovers
+  # selected phenodata group by user and the gene names from the featuredata
+  # in order to melt them and create a new dataframe for further analysis
+  
   genes.raw <- reactive({
     req(eSetRaw(), facLevel())
-    
     matriz <- eSetRaw()
     facLevel<- facLevel()
     sample <- sampleNames(matriz)
@@ -232,17 +226,10 @@ server <- function(input, output, session) {
   })
   
   ## genes.rma
-  # create a data frame with the norm data
-  # need functions where create war dara and factor levels
-  # saves the sample name of the norm data
-  # Extract expression genes from norm data
-  # call function which create factor levels of pheno data
-  # convert objects to molten data frame
-  # create a new column in molten dataframe where add factor level
-  # to each column if the value of sample matchs with value of molten sample
+  # same as genes.raw but with normalized gene expression matrix
+  
   genes.rma <- reactive({
     req(eSetRma(), facLevel())
-    
     matriz <- eSetRma()
     facLevel<- facLevel()
     sample <- sampleNames(matriz)
@@ -255,7 +242,14 @@ server <- function(input, output, session) {
     g
   })
   
-  ##### function contrast #####
+  ##### Contrast() #####
+  # this function will take all the different factos in
+  # phenodata groups and create a vector of contrast groups between them
+  # eg: phenodata column of "genotype" has two factors: "control" and
+  # "infected". This function will return a vector with "control-infected"
+  # its result will be used to make the contrast design in order to do
+  # further Ebayes statistic analysis
+  
   contrast <- function(x){
     x <- make.names(x)
     num <- 1
@@ -283,6 +277,8 @@ server <- function(input, output, session) {
   }
   
   ## Contrast Groups ###
+  # applies the contrast function to chosen phenodata column
+  
   contrast.gru <- reactive({
     g <- facLevel()
     g <- contrast(g)
@@ -290,15 +286,15 @@ server <- function(input, output, session) {
   })
   
   
-  ## ebayes
-  # data for the heatmap (normalized)
-  # need the factor levels function and normalized data 
-  # saves the value of expression data 
-  # factor levels of the column selected by user
-  # create a matrix which create columns where each factor level
-  # has positive value in his position
-  # create a linear model where add the value of each feature
-  # to the factors levels of design
+  ## Ebayes
+  # Empirical Bayes methods are procedures for statistical inference
+  # in which the prior distribution is estimated from the data
+  # In order to do this inference, we eed to prepare the data:
+  # we create a design matrix with factors from chosen phenodata column
+  # then create a constrast design with contrast groups, apply
+  # Fit linear model to first design then to contrast design and then apply the
+  # ebayes function
+  
   ebayes <- reactive({
     req(facLevel(), eSetRma())
     
@@ -319,7 +315,8 @@ server <- function(input, output, session) {
   })
   
   ##### ranked #####
-  # reactive function which return the top tanked genes
+  # reactive function which returns the top tanked genes
+  # it will use all its parameters as input values from user
   ranked <- reactive({
     req(ebayes(), input$top_coef, input$top_adjust, input$max_toptable)
     e <- ebayes()
@@ -329,11 +326,14 @@ server <- function(input, output, session) {
   
   ## labColNames
   # return factor levels as a character vector
-  # require this function
   labColNames<- reactive({
     req(facLevel())
     return(as.character(facLevel()))
   })
+  
+  #### go_data #####
+  # it will storage 4 columns of interest in order to print in a datatable
+  # genes lyst with names and GO functions from genes in selected microarray
   
   go_data <- reactive({
     req(eSetRma())
@@ -348,10 +348,10 @@ server <- function(input, output, session) {
   ########### QUALITY PLOTS ##############
   
   ### Plots raw
-  # reactive function that render the plot to create a bar plot
-  # of the raw data of the GDS obj
-  # require this function
-  # Create a plot with the raw genes rawData
+  # renders box plot of the raw gene expression matrix
+  # for the sake of usability and user-friendly interface, it incorporates
+  # a withProgress bar, in order to give some visual inputs to user while
+  # app is proccessing all the info
   # @x is the value of the column sample from rawData
   # @y is the value of the column value from rawData
   # @fill assign color based on the factor levels
@@ -374,10 +374,7 @@ server <- function(input, output, session) {
   })
   
   #### Plots normalized
-  # reactive function that render the plot to create a bar plot
-  # of the normalized data of the GDS obj
-  # requiere this function
-  # Create a plot with the norm genes normData
+  # renders box plot of the normalized gene expression matrix
   # @x is the value of the column sample from normData
   # @y is the value of the column value from normData
   # @fill assign color based on the factor levels
@@ -393,6 +390,8 @@ server <- function(input, output, session) {
   })
   
   ##### Dendrogram raw #####
+  # plots the Hierarchical clustering, also known as hierarchical cluster analysis,
+  # that groups similar samples by gene expressions. Uses input from user to choose the algorithm
   
   output$dendro.raw <- renderPlot({
     req(eSetRaw())
@@ -405,6 +404,7 @@ server <- function(input, output, session) {
   })
   
   ##### Dendrogram rma #####
+  # Same as dendro.raw but with normalized gene expression values
   
   output$dendro.rma <- renderPlot({
     req(eSetRma())
@@ -416,17 +416,12 @@ server <- function(input, output, session) {
       theme(plot.title = element_text(face="bold"), axis.title= element_blank()) 
   })
   
-  ######## ma ########
-  # reactive function that render the plot to create a MA plot
-  # of the normalized data of the GDS obj
-  # require this function
-  # calculate mean of row where column
-  # and substract the same column where 
-  # calculate mean of the row values
-  # create a smoothed color density representation of a scatterplot
-  # @Main = main title of the plot
-  # @xlab = label name of the axis
-  # @ylab = label name of the axis
+  ######## MA plot ########
+  # plot that compares gene expressions between one sample and the rest
+  # of them, comparing means of log expression; used to compare
+  # how much different is one sample expression against all the experiment
+  # @matriz assayData
+  # @index name of sample translated in integer
   # @abline h  create horitzontal line at values 1 and -1
   
   output$plot.MA <- renderPlot({
@@ -442,14 +437,13 @@ server <- function(input, output, session) {
   ######## GENE EXPRESSION ##########
   
   ##### Heat map plot  ##### 
-  # render an interactive heat map plot
+  # renders an interactive heat map plot
   # create an interactive heatmap
-  # @expDataName[1:20,] = select the first 20 values to create the heat map
-  # @labCol = names of the columns to use
-  # @cexRow = positive numbers
-  # @dendogram = number of coluns to draw
+  # @expDataName[1:input$sli_heatmap,]map
+  # @labCol = phenodata factors, input from user
   # @k_row = number of groups to color the branches in the row
   # @k_col = number of groups to color the branches in the column
+  
   output$plot.heatMap <- renderD3heatmap({
     req(eSetRma())
     expSet<- exprs(eSetRma())
@@ -461,7 +455,9 @@ server <- function(input, output, session) {
   })
   
   #### Volcano plot ####
-  # reactive function whihch create a volcano plot
+  # plots contrast design to see how a gene expression differs between
+  # phenodata groups and samples, comparing fold changes to p.value
+  
   output$plot.volcano <- renderPlot({
     req(ranked(), input$top_coef)
     t<-ranked()
@@ -477,6 +473,10 @@ server <- function(input, output, session) {
   })
   
   ### Plot individual gene expression ####
+  # using a jitter and geom_point we can easily see
+  # how a unique gene is expressed across samples and phenodata
+  # groups
+  
   output$plot.gene1 <- renderPlotly({
     req(facLevel())
     gene <- input$searchGene
@@ -500,25 +500,16 @@ server <- function(input, output, session) {
       theme(legend.position = "none")
   })
   
-  ########### TABLES ########
-  ## rawGds
-  # renders raw data frame with DT package, including gene symbols annot
+  ########### GO_TABLE ########
+  # renders a Dt datatable with gene data, reporting back
+  # go functions and gene names
   output$go_table <- DT::renderDataTable({
     req(go_data())
     DT::datatable(go_data(), class= "table-stripe", style = "bootstrap", rownames = FALSE, extensions = 'Buttons', options = list(
       dom = 'Bfrtip',
       buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
     ))
-    # req(genes.raw())
-    # DT::datatable(genes.raw(), class = "cell-border stripe")
+
   })
-  
-  ## rmaGds
-  # render normalized data with DT package, including gene symbols annot
-  output$rmaGds <- DT::renderDataTable({
-    req(genes.rma())
-    DT::datatable(genes.rma() , class = "cell-border stripe")
-  })
-  
   
 }
