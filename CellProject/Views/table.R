@@ -1,25 +1,29 @@
 tableView <- function(){
-  
-  ######## PANEL PLOTS  ########
-  
-  # Conditional panel which show gds data in a table
   conditionalPanel(
-    
-    ## DATA PANEL
-    # if sidebar id is equal with "data" show page
     condition= "input.sidebar == 'data'",
-    
-    # Create a tab panel in body
-    tabsetPanel(type="tabs",
-                # Create tab and set title
-                tabPanel(
-                  "RAW gds data",
-                  DT::dataTableOutput("rawGds") # create a output function to print the table
-                ),
-                tabPanel(
-                  "RMA gds data",
-                  DT::dataTableOutput("rmaGds") # create a output function to print the table
-                )
-    )
+    fluidRow(
+      box(title = "Gene Expression Tables", status = "primary", solidHeader = TRUE,
+          collapsible = TRUE, width = 12,
+          tabBox(id = "data_table",
+                 width = 12,
+                 tabPanel("Raw Data",
+                          DT::dataTableOutput("rawGds")
+                          ),
+                 tabPanel("Normalized Data",
+                          DT::dataTableOutput("rmaGds"))
+                 )
+          )
+      ),
+    fluidRow(
+      box(title = "Gene Expression // Search by Gene Symbol", status = "primary", solidHeader = TRUE,
+          collapsible = TRUE, width = 12,
+          column(9, plotlyOutput("plot.gene1",  height = "80vh")),
+          column(3, 
+                 searchInput("searchGene", label="Search gene to evaluate",
+                             btnReset = icon("remove"), btnSearch = icon("search")),
+                 radioButtons("radioGene", "Select Raw or Normalized data:",
+                              choices=c("Raw", "Normalized")))
+          )
+      )
   )
 }

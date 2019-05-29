@@ -84,6 +84,13 @@ server <- function(input, output, session) {
     )
   })
   
+  ###### select ma plot ########
+  output$ma_selector <- renderUI({
+    req(eSetRma())
+    samplenames <- sampleNames(eSetRma())
+    selectInput("ma_selector1", "Select your sample to compare", choices=samplenames)
+  })
+  
   ######### toptable settings #########
   # this will print three inputs required to entangle with Heatmap and Volcanoplot
   # 1. first, it creates a slider for amount of genes
@@ -160,40 +167,13 @@ server <- function(input, output, session) {
   
   ## gdsObjInput: Reactive event
   # Download GDS object from NCBI Geo and saves into a Geo Object
-  gdsObjInput <- eventReactive(input$search, {
+  gdsObj <- eventReactive(input$search, {
     idEmpty() # show error if id is empty
     data <- try(getGEO(input$queryId)) # saves downloaded gds object
     idError() # show error if id in invalid
     return(data)
   })
-  
-  ## gdsObjFile: Reactive event
-  # create gds obj with the gds file uploaded by the user
-  # Unzip .gz file in temp directory and rename it to the name of the uploaded file without the .gz extention
-  # unzip .gz file in dest_dir and overwrite it if exist
-  # Convert .soft file to GDS object
-  # gdsObjFile <- eventReactive(input$upload, {
-  #   emptyFile() # show message error
-  #   dest_dir = paste(tempdir(), "/", tools::file_path_sans_ext(input$cellFile$name),
-  #                    sep = "")
-  #   gunzip(input$cellFile$datapath, dest_dir, overwrite=TRUE)
-  #   data <- try(getGEO(filename = dest_dir))
-  #   idError() # show error if id in invalid
-  #   return(data)
-  # })
-  
-  ## gdsObj: r function
-  # Function which manages to return the same value but differents ways
-  gdsObj <- function(){
-    
-    # return gds obj only is their class is equal to GDS class
-    if(class(gdsObjInput()) == "GDS"){
-      return(gdsObjInput())
-    }
-    # if(class(gdsObjFile()) == "GDS"){
-    #   return(gdsObjFile())
-    # }
-  }
+
   
   ## eSetRaw
   # transform a GDS obj to Expression set obj
@@ -426,7 +406,7 @@ server <- function(input, output, session) {
       theme(plot.title = element_text(face="bold"), axis.title= element_blank()) 
   })
   
-  ### plot ma
+  ######## ma ########
   # reactive function that render the plot to create a MA plot
   # of the normalized data of the GDS obj
   # require this function
@@ -440,14 +420,19 @@ server <- function(input, output, session) {
   # @abline h  create horitzontal line at values 1 and -1
   
   output$plot.MA <- renderPlot({
+    # req(eSetRma())
+    # g <- facLevel() # factors levels
+    # Index <- as.numeric(g) # numeric factor levels
+    # y <- exprs(eSetRma()) # expression data of norm gds obj
+    # d <- rowMeans(y[,Index==2]) - rowMeans(y[, Index==1])
+    # a <- rowMeans(y)
+    # smoothScatter(a, d, main="MA plot", xlab="Mean of gene expressions", ylab="Means diff of pheno groups")
     req(eSetRma())
-    g <- facLevel() # factors levels
-    Index <- as.numeric(g) # numeric factor levels
-    y <- exprs(eSetRma()) # expression data of norm gds obj
-    d <- rowMeans(y[,Index==2]) - rowMeans(y[, Index==1])
-    a <- rowMeans(y)
-    smoothScatter(a, d, main="MA plot", xlab="Mean of gene expressions", ylab="Means diff of pheno groups")
-    abline(h=c(-1,1), col="red")
+    samplen <- sampleNames(eSetRma())
+    matriz <- eSetRma()
+    index <- as.integer(which(samplen==input$ma_selector1))
+    limma::plotMA(matriz, index)
+    
   })
   
   

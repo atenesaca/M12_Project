@@ -16,44 +16,44 @@ mainView <- function(){
         fluidRow(
           box(
             width = 12,
-            h1("Introduction"),
-            p("GDS analysis is an online app to perform analysis to a differential expression genes
-              microarrays experiment, currently the app only analise data from NCBI GEO Homo sapiens, 
-              int the future we will add more types of arrays and organism."),
-            p("This app uses the Empirical Bayes Method from Limma (Linear Models for Microarray Data),
-              R package to calculate the expression of the genes"),
-            p("You can download all de data from",
-              a("NCBI GEO", href="https://www.ncbi.nlm.nih.gov/geo/"),
-              "for further analysis"),
-            
-            h1("How to use it?"),
+            h1(tags$b("GDS ANALYSIS"), align="center"),
+            tags$blockquote(tags$em("The GDS tool for no fools!", align="center")),
+            br(),
+            p("Welcome to our online app!", br(), 
+              "Here you will be able to check gene expression in GDS packages in a very easy and intuitive way, without 
+              resorting to manually crafted phenodata csv's or targets or whatsoever!", tags$em("(Awesome!)"), br(), 
+              "This app mainly uses the ", tags$a(href="http://bioconductor.org/packages/release/bioc/html/limma.html", "Limma"),
+              "(Linear Models for Microarray Data), a BioConductor (R) package that makes use of linear models for analysing 
+              designed experiments and the assessment of differential expression"),
+ 
+            h2("How-To"),
             p("This section provides a short guide to run the GDS analysis"),
+            br(),
             
-            h2("Data input selection"),
-            p("In the Data input section, the user have to provide the following data to run the analysis"),
-            p("In the GEO ID section, the user have to provide an GEO ID from NCBI", tags$b("e.g. GDS858")),
-            p("In the GDS File section, the user have to provide CELFILEs in .soft file"),
+            h3("Data input selection"),
+            p("In the 'Data Input' tab in the sidebar menu, you have to provide a GDS ID from NCBI",
+              tags$b("(e.g. GDS858)")),
             
-            h1("Plot"),
-            p("The plot section runs a quality control on the raw data, and the normalized data:"),
-            p("Normalization of the samples is done with",
-              a("GDS2eSet", "https://www.rdocumentation.org/packages/GEOquery/versions/2.38.4/topics/Converting"),
-              "method"),
+            h3("Plot"),
+            p("The plot section will let you asset differences between raw and normalized data, and proceed with
+              exploration of gene expression through differents graphics.", tags$em("Isn't that fun?! I KNOW, RIGHT!")),
+            p(" Data normalization is done with",  
+              tags$a(href="https://www.rdocumentation.org/packages/GEOquery/versions/2.38.4/topics/Converting", "GDS2eSet"), 
+              "method."),
             p("The plot section includes the following plots:"),
-            p(
+            box(width=12,
               tags$ol(
                 tags$li("BoxPlot"),
                 tags$li("Dendrogram Plot"),
-                tags$li("smooth Scatter"),
+                tags$li("MAplot"),
                 tags$li("HeatMap"),
-                tags$li("Volcano"),
-                tags$li("Jitter")
+                tags$li("Volcano")
               )
             ),
             
-            h1("Data section"),
-            p("This section shows the result of GDS analysis in data table format, where user can view values
-              of the raw and normalized data")
+            h3("Gene Tables and Individual Graphic Expressions"),
+            p("Here, you will be able to search genes by probe name or GENE Symbol name, 
+              and then proceed to visualize its expression in a Point plot.", tags$em("(OH. MY. GOD.)"))
           )
         )
       ),

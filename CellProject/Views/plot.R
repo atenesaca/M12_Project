@@ -37,8 +37,8 @@ plotView <- function(){
                            br(),
                            box(title = "Samples Aggregations", status = "primary",
                                solidHeader = TRUE, collapsible = TRUE, width = 12,
-                           column(width=8, offset=2, align="center",
-                                  plotOutput("plot.MA", height = 650))
+                               column(8, plotOutput("plot.MA", height = 650)),
+                               column(4, uiOutput("ma_selector"))
                            )
                          )
                 ),
@@ -63,22 +63,9 @@ plotView <- function(){
                          fluidRow(
                            box(title = "VOLCANO", status = "primary", solidHeader = TRUE,
                                collapsible = TRUE, width = 12,
-                           br(),
-                           br(),
-                           plotOutput("plot.volcano", height = 800)
-                           )
-                         ),
-                         # reactive function which show a plot of genes
-                         fluidRow(
-                           br(),
-                           box(title = "Gene Expression // Search by Gene Symbol", status = "primary", solidHeader = TRUE,
-                               collapsible = TRUE, width = 12,
-                               column(9, plotlyOutput("plot.gene1",  height = "80vh")),
-                               column(3, 
-                                      searchInput("searchGene", label="Search gene to evaluate",
-                                                     btnReset = icon("remove"), btnSearch = icon("search")),
-                                      radioButtons("radioGene", "Select Raw or Normalized data:",
-                                               choices=c("Raw", "Normalized")))
+                               br(),
+                               br(),
+                               plotOutput("plot.volcano", height = 800)
                                )
                            )
                          )

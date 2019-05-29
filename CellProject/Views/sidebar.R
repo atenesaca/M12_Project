@@ -1,14 +1,11 @@
 sidebarView <- function(){
   
-  # Create a menu where we can add multiples menu items
-  sidebarMenu(id="sidebar", # set an id to sidebar menu
-              # Create an item where we can add an id and an icon
+  sidebarMenu(id="sidebar",
               menuItem("Home", tabName = "home", icon = icon("home")),
               menuItem("Data input", tabName = "queries", icon = icon("keyboard")),
               menuItem("Plot", tabName = "plot", icon = icon("chart-bar")),
               menuItem("Data", tabName = "data", icon = icon("table")),
-              
-              #show a select where user can change the theme of the web
-              uiChangeThemeDropdown()
+              menuItem("Page Settings", tabName = "settings", icon = icon("cog"))
+              #uiChangeThemeDropdown()
   )
 }
