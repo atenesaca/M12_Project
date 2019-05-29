@@ -119,17 +119,6 @@ mainView <- function(){
                        design is provided through GDS subsets.")
                  )
                )
-      ),
-      tabPanel(
-        "Micro arrays",
-        fluidRow(
-          box(
-            width = 12,
-            h1("To Do"),
-            a("Micro arrays en espanyol",
-              href="https://www.cabimer.es/web3/unidades-apoyo/genomica/microarrays-de-affymetrix/")
-          )
-        )
       )
     )
   )

@@ -56,7 +56,7 @@ plotView <- function(){
                                       br(),
                                       sliderInput("sli_heatmap", label = "Please select the 
                                               amount of genes to display in heatmap", min = 15,
-                                                  max = 300, value = 30))
+                                                  max = 500, value = 30))
                                )
                            ),
                          # reactive function which show a volcano plot

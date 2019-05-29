@@ -59,13 +59,13 @@ server <- function(input, output, session) {
     )
   })
   
-  # Switch to plot page when click in Go to plot button
+  # Switch to plot page when user clicks "Go to plot" button
   observeEvent(input$goToPlot, {
     newtab <- switch(input$sidebar, "queries" = "plot", "plot" = "queries")
     updateTabItems(session, "sidebar", newtab)
   })
   
-  # Switch to data page when click in Go to data button
+  # Switch to data page when user clicks in "Go to data" button
   observeEvent(input$goToData, {
     newtab <- switch(input$sidebar, "queries" = "data", "data" = "queries")
     updateTabItems(session, "sidebar", newtab)
@@ -85,6 +85,7 @@ server <- function(input, output, session) {
   })
   
   ###### select ma plot ########
+  # creates selectInput, fills its choices with sampleNames from ExpressionSet file
   output$ma_selector <- renderUI({
     req(eSetRma())
     samplenames <- sampleNames(eSetRma())
@@ -105,15 +106,18 @@ server <- function(input, output, session) {
           sliderInput("max_toptable", label = "Please select the max amount of genes to
                                        be considered into the TopTable design:", min = 50,
                       max = length(rownames(eSetRma())), value = 1000),
-          selectInput("top_adjust", "Choose Adjust Method: ",
-                      choices=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
-                                "fdr", "none")),
-          selectInput("top_coef", "Choose Coeficient from Contrast Design: ",
-                      choices=colnames(ebayes()$coefficients))
+          fluidRow(
+            column(6,
+                   selectInput("top_adjust", "Choose Adjust Method: ",
+                               choices=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY",
+                                         "fdr", "none"))),
+            column(6,
+                   selectInput("top_coef", "Choose Coeficient from Contrast Design: ",
+                               choices=colnames(ebayes()$coefficients)))
+            )
+          )
       )
-    )
-    
-  })
+    })
   
   ######### Error Functions ###########
   
