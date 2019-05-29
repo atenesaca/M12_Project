@@ -12,10 +12,10 @@ server <- function(input, output, session) {
   getConnection <-  tryCatch({
     dbConnect(
       drv = RMySQL::MySQL(),
-      dbname = "cellfiles",
-      host = "localhost",
-      username = "provenusr",
-      password = "Provenpass1.")
+      dbname = "dawbi1904",
+      host = "127.0.0.1",
+      username = "dawbi1904",
+      password = "Ax4jeas7!")
   },
   error = function(e){ # if connection is invalid, gives an error
     "Error connecting to database"
