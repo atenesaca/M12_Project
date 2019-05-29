@@ -33,7 +33,7 @@ server <- function(input, output, session) {
   output$gds_db <- renderTable({
     if(class(getConnection) == "MySQLConnection"){ 
       on.exit(dbDisconnect(getConnection)) # Close connection when user close app
-      filesDT <-  dbGetQuery(getConnection, "SELECT filename,dbid FROM files")
+      filesDT <-  dbGetQuery(getConnection, "SELECT dbid,filename FROM files")
       filesDT
     }
     else { 
@@ -242,10 +242,9 @@ server <- function(input, output, session) {
     matriz <- eSetRma()
     facLevel<- facLevel()
     sample <- sampleNames(matriz)
+    probenames<-rownames(matriz)
     y <- exprs(matriz)
     gen <- fData(matriz)[,3]
-    probenames<-rownames(matriz)
-    
     g<- melt(y, varnames = c( "probe", "sample"))
     g$group <- facLevel[match(g$sample, sample)]
     g$gen <- gen[match(g$probe, probenames)]
@@ -330,6 +329,13 @@ server <- function(input, output, session) {
   labColNames<- reactive({
     req(facLevel())
     return(as.character(facLevel()))
+  })
+  
+  go_data <- reactive({
+    req(eSetRma())
+    data <- fData(eSetRma()) %>% 
+      select("ID", "Gene symbol", "Nucleotide Title", "GO:Function")
+    data
   })
   
   
@@ -420,19 +426,12 @@ server <- function(input, output, session) {
   # @abline h  create horitzontal line at values 1 and -1
   
   output$plot.MA <- renderPlot({
-    # req(eSetRma())
-    # g <- facLevel() # factors levels
-    # Index <- as.numeric(g) # numeric factor levels
-    # y <- exprs(eSetRma()) # expression data of norm gds obj
-    # d <- rowMeans(y[,Index==2]) - rowMeans(y[, Index==1])
-    # a <- rowMeans(y)
-    # smoothScatter(a, d, main="MA plot", xlab="Mean of gene expressions", ylab="Means diff of pheno groups")
     req(eSetRma())
     samplen <- sampleNames(eSetRma())
     matriz <- eSetRma()
     index <- as.integer(which(samplen==input$ma_selector1))
     limma::plotMA(matriz, index)
-    
+    abline(h=c(-1,1), col="red")
   })
   
   
@@ -501,9 +500,14 @@ server <- function(input, output, session) {
   ########### TABLES ########
   ## rawGds
   # renders raw data frame with DT package, including gene symbols annot
-  output$rawGds <- DT::renderDataTable({
-    req(genes.raw())
-    DT::datatable(genes.raw(), class = "cell-border stripe")
+  output$go_table <- DT::renderDataTable({
+    req(go_data())
+    DT::datatable(go_data(), class= "table-stripe", style = "bootstrap", rownames = FALSE, extensions = 'Buttons', options = list(
+      dom = 'Bfrtip',
+      buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+    ))
+    # req(genes.raw())
+    # DT::datatable(genes.raw(), class = "cell-border stripe")
   })
   
   ## rmaGds

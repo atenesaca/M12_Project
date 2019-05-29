@@ -2,16 +2,9 @@ tableView <- function(){
   conditionalPanel(
     condition= "input.sidebar == 'data'",
     fluidRow(
-      box(title = "Gene Expression Tables", status = "primary", solidHeader = TRUE,
+      box(title = "GO Table", status = "primary", solidHeader = TRUE,
           collapsible = TRUE, width = 12,
-          tabBox(id = "data_table",
-                 width = 12,
-                 tabPanel("Raw Data",
-                          DT::dataTableOutput("rawGds")
-                          ),
-                 tabPanel("Normalized Data",
-                          DT::dataTableOutput("rmaGds"))
-                 )
+          withLoader(DT::dataTableOutput("go_table"), loader="dnaspin")
           )
       ),
     fluidRow(
